@@ -290,6 +290,9 @@ Onde:
 - Custo = f(Tokens_Processados, Pricing_API, Infraestrutura)
 - Consistência = f(Variabilidade, Determinismo, Robustez)
 
+**Diagrama conceitual**
+![Diagrama Conceitual](https://github.com/MatVini0601/EXP-LLM-DOM-001/blob/main/images/diagramaConceitual.png)
+
 **Relações Causais Hipotéticas:**
 
 RC1: Complexidade x Qualidade Diferenciada
