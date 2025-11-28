@@ -275,3 +275,469 @@ A comunidade open source, por sua vez, busca evidências transparentes que permi
 | CP4 | Termos de serviço proíbem comparação pública ou publicação de resultados                                    | Negociar com fornecedores ou anonimizar resultados                                                        | Pesquisador Principal + Assessoria Jurídica |
 | CP5 | Piloto revela problemas fundamentais em > 30% das execuções (erros de API, métricas não calculáveis)       | Revisar protocolo, ajustar métricas ou infraestrutura antes de prosseguir                                 | Pesquisador Principal                  |
 | CP6 | Mudanças institucionais que impedem dedicação necessária ao experimento                                     | Adiar ou transferir responsabilidade para outro pesquisador                                               | Orientador + Instituição               |
+
+
+### 7. Modelo Conceitual e Hipóteses
+#### 7.1 Modelo Conceitual do Experimento
+Modelo Teórico de Desempenho de LLMs:
+O desempenho observável de um Large Language Model pode ser decomposto em múltiplas dimensões inter-relacionadas mas conceitualmente distintas:
+
+**DESEMPENHO_LLM** = f(Qualidade, Eficiência, Custo, Consistência)
+
+Onde:
+- Qualidade = f(Precisão, Relevância, Completude, Correção)
+- Eficiência = f(Velocidade, Latência, Throughput)
+- Custo = f(Tokens_Processados, Pricing_API, Infraestrutura)
+- Consistência = f(Variabilidade, Determinismo, Robustez)
+
+**Relações Causais Hipotéticas:**
+
+RC1: Complexidade x Qualidade Diferenciada
+- H: Tarefas mais complexas amplificam diferenças entre modelos
+**Mecanismo:** Modelos mais sofisticados têm vantagem maior em raciocínio complexo
+
+RC2: Categoria x Especialização
+- H: Modelos apresentam pontos fortes em categorias específicas
+**Mecanismo:** Viés de treinamento ou arquitetura favorece certos tipos de tarefa
+
+RC3: Custo x Qualidade (Não-Linear)
+- H: Existe correlação positiva mas com diminishing returns
+**Mecanismo:** Modelos premium são melhores mas não proporcionalmente ao custo
+
+RC4: Temperatura x Trade-off Criatividade/Consistência
+- H: Temperaturas mais altas aumentam criatividade mas reduzem consistência
+**Mecanismo:** Aumento de aleatoriedade na geração
+
+RC5: Tamanho do Prompt x Tempo (Linear)
+- H: Tempo de resposta aumenta linearmente com tokens de entrada
+**Mecanismo:** Complexidade computacional O(n) do processamento de entrada
+
+**Moderadores Identificados:**
+
+Categoria da Tarefa: Modera relação Modelo x Qualidade
+Complexidade: Modera magnitude das diferenças entre modelos
+Idioma: Pode moderar desempenho (português vs. inglês)
+
+#### 7.2 Hipóteses Formais (H0, H1)
+##### Hipótese Nula Principal (H0_geral):
+
+H0: Não existem diferenças estatisticamente significativas no desempenho médio geral entre os quatro modelos de LLMs avaliados (GPT-4, Claude Sonnet 3.5, Gemini Pro 1.5, LLaMA 3.1).
+
+##### Hipótese Alternativa Principal (H1_geral):
+
+H1: Existem diferenças estatisticamente significativas (p < 0.05) no desempenho médio geral entre pelo menos dois dos quatro modelos avaliados.
+
+#### Hipóteses Específicas por Dimensão:
+**Grupo 1:** Qualidade
+- H0_qual: μ_qualidade(GPT4) = μ_qualidade(Claude) = μ_qualidade(Gemini) = μ_qualidade(LLaMA)
+- H1_qual: Pelo menos duas médias de qualidade diferem significativamente
+
+**Grupo 2:** Eficiência Computacional
+- H0_efic: μ_tempo(GPT4) = μ_tempo(Claude) = μ_tempo(Gemini) = μ_tempo(LLaMA)
+- H1_efic: Pelo menos duas médias de tempo diferem significativamente
+
+
+**Grupo 3:** Custo-Benefício
+- H0_custo: A relação Qualidade/Custo é equivalente entre todos os modelos
+- H1_custo: Pelo menos um modelo apresenta relação Qualidade/Custo significativamente diferente
+
+**Grupo 4:** Consistência e Robustez
+- H0_consist: σ_intra(GPT4) = σ_intra(Claude) = σ_intra(Gemini) = σ_intra(LLaMA)
+- H1_consist: Pelo menos um modelo apresenta variabilidade significativamente diferente
+
+
+**Grupo 5:** Interações e Moderadores
+H9 (Interação Modelo × Categoria): O desempenho relativo entre modelos depende significativamente da categoria da tarefa.
+
+H0_9: Não há efeito de interação Modelo × Categoria
+H1_9: Existe efeito significativo de interação (p < 0.05)
+
+### 8. Variáveis, Fatores, Tratamentos e Objetos de Estudo
+#### 8.1 Objetos de Estudo
+
+Os objetos de estudo são as respostas geradas pelos modelos de LLMs para prompts específicos. Cada resposta constitui uma instância de análise que será avaliada segundo múltiplas dimensões.
+
+Caracterização:
+
+- **Natureza:** Textos em linguagem natural (incluindo código quando aplicável)
+- **Origem:** Gerados sinteticamente pelos modelos em resposta a prompts padronizados
+- **Quantidade:** 3.000 respostas totais (4 modelos × 250 prompts × 3 repetições)
+- **Formato:** Strings de texto variando de poucos tokens a ~2.000 tokens
+- **Contexto:** Cada resposta está vinculada a um prompt específico, modelo específico, categoria e número de execução
+
+Granularidade de Análise:
+
+- **Unidade Primária:** Resposta individual (n=3.000)
+- **Unidade Agregada:** Média de 3 repetições por [modelo × prompt] (n=1.000)
+- **Unidade Comparativa:** Modelo (n=4)
+
+Propriedades Analisadas:
+
+- Correção factual
+- Qualidade do código (se aplicável)
+- Clareza e estruturação
+- Completude em relação ao solicitado
+- Consistência entre repetições
+- Características quantitativas (tokens, tempo, custo)
+
+#### 8.2 Variáveis independentes
+**Fator Principal 1: MODELO LLM**
+
+Tipo: Variável categórica nominal, between-subjects
+Definição: Modelo de Large Language Model utilizado para gerar a resposta
+Níveis (n=4):
+
+- Nível 1: GPT-4 Turbo (gpt-4-turbo-2024-04-09) - OpenAI
+- Nível 2: Claude Sonnet 3.5 (claude-sonnet-3-5-20241022) - Anthropic
+- Nível 3: Gemini Pro 1.5 (gemini-1.5-pro) - Google
+- Nível 4: LLaMA 3.1 70B (meta-llama/Meta-Llama-3.1-70B-Instruct) - Meta
+
+
+**Manipulação:** Cada prompt é submetido aos 4 modelos independentemente
+**Justificativa:** Fator primário de interesse para comparação
+
+**Fator Principal 2: CATEGORIA DA TAREFA**
+
+Tipo: Variável categórica nominal, within-subjects
+Definição: Tipo ou domínio da tarefa apresentada no prompt
+Níveis (n=5):
+
+- Nível 1: Geração de Código (programação, algoritmos, debugging)
+- Nível 2: Análise de Texto (sumarização, extração, análise de sentimento)
+- Nível 3: Raciocínio Lógico (problemas matemáticos, puzzles, dedução)
+- Nível 4: Criatividade (escrita criativa, brainstorming, storytelling)
+- Nível 5: Perguntas Factuais (conhecimento geral, fatos verificáveis)
+
+
+**Manipulação:** Dataset balanceado com 50 prompts por categoria
+**Justificativa:** Permite identificar especialização de modelos por domínio
+
+**Fator Secundário: COMPLEXIDADE DA TAREFA**
+
+Tipo: Variável ordinal, within-subjects
+Definição: Nível de dificuldade e especialização requerida pela tarefa
+Níveis (n=3):
+
+- Baixa: Tarefas simples, conhecimento básico (score 1-3)
+- Média: Tarefas moderadas, requerem raciocínio intermediário (score 4-7)
+- Alta: Tarefas complexas, conhecimento especializado (score 8-10)
+
+
+**Distribuição:** 30% baixa, 50% média, 20% alta
+**Manipulação:** Pré-classificação dos prompts por especialistas
+**Justificativa:** Investigar se complexidade modera desempenho relativo
+
+**Fator de Controle: NÚMERO DA EXECUÇÃO**
+
+Tipo: Variável ordinal, within-subjects
+Definição: Repetição sequencial do mesmo prompt para avaliar consistência
+Níveis (n=3):
+
+- Execução 1
+- Execução 2
+- Execução 3
+
+
+**Manipulação:** Cada [modelo × prompt] executado 3 vezes
+**Justificativa:** Medir variabilidade intra-modelo
+
+#### 8.3 Tratamentos (Condições Experimentais)
+
+O experimento segue um desenho fatorial completo envolvendo quatro modelos, cinco categorias de tarefa e três níveis de complexidade. O primeiro grupo experimental utiliza o GPT-4 Turbo da OpenAI, configurado com temperatura 0,7, limite de 2048 tokens e top_p de 0,9, por meio da API oficial. Esse grupo gera 750 observações resultantes de 250 prompts repetidos três vezes. O segundo grupo experimental segue a mesma configuração de parâmetros, mas emprega o modelo Claude Sonnet 3.5 da Anthropic, também com 750 observações. O terceiro grupo utiliza o modelo Gemini Pro 1.5 do Google, com as mesmas condições e número de observações. O quarto grupo experimental utiliza o LLaMA 3.1 70B da Meta, executado localmente ou via API comercial, mantendo-se os mesmos hiperparâmetros para garantir comparabilidade.
+
+Todos os tratamentos utilizam exatamente os mesmos prompts, a mesma ordem de apresentação, o mesmo período temporal de coleta e os mesmos critérios de avaliação. Não há grupo controle no sentido tradicional; cada modelo representa um tratamento ativo, e a comparação entre eles constitui o objetivo central.
+
+#### 8.4 Variáveis Dependentes (Respostas)
+##### Categoria 1: Qualidade das Respostas
+VD1: Taxa de Acerto (Accuracy)
+
+**Definição:** Proporção de respostas corretas para tarefas com resposta verificável
+**Tipo:** Variável contínua (razão)
+**Unidade:** Percentual (0-100%)
+**Método de Medição:** Comparação automática com gabarito + verificação humana
+**Aplicável a:** Perguntas factuais, raciocínio lógico
+
+VD2: Score F1
+
+**Definição:** Média harmônica de precisão e recall para tarefas de classificação
+**Tipo:** Variável contínua (razão)
+**Unidade:** Adimensional (0-1)
+**Método de Medição: **Cálculo estatístico baseado em matriz de confusão
+**Aplicável a:** Tarefas de classificação, análise de texto
+
+VD3: Taxa de Sucesso de Compilação
+
+**Definição:** Proporção de códigos que compilam sem erros sintáticos
+**Tipo:** Variável contínua (razão)
+**Unidade:** Percentual (0-100%)
+**Método de Medição:** Execução em sandbox com compilador/interpretador
+**Aplicável a:** Geração de código
+
+VD4: Número de Bugs Identificados
+
+**Definição:** Quantidade de erros lógicos ou funcionais no código
+**Tipo:** Variável discreta (contagem)
+**Unidade:** Número inteiro ≥ 0
+**Método de Medição:** Revisão humana + análise estática
+**Aplicável a:** Geração de código
+
+VD5: Score de Avaliação Humana
+
+**Definição:** Qualidade percebida por especialistas
+**Tipo:** Variável ordinal (Likert)
+**Unidade:** Escala 1-5 (1=muito ruim, 5=excelente)
+**Método de Medição:** Avaliação cega usando rubrica padronizada
+**Aplicável a:** Todas as categorias
+
+VD6: Kappa de Cohen (Concordância)
+
+**Definição:** Concordância entre avaliadores além do acaso
+**Tipo:** Variável contínua (razão)
+**Unidade:** Adimensional (-1 a 1)
+**Método de Medição:** Cálculo estatístico: κ = (Po-Pe)/(1-Pe)
+**Aplicável a:** Meta-métrica para validar VD5
+
+##### Categoria 2: Eficiência Computacional
+VD7: Tempo Médio de Resposta
+
+**Definição:** Duração do processamento
+**Tipo:** Variável contínua (razão)
+**Unidade:** Segundos (s)
+**Método de Medição:** Timestamp_fim - Timestamp_início
+**Aplicável a:** Todas as execuções
+
+VD8: Percentil 95 do Tempo
+
+**Definição:** Tempo máximo para 95% das requisições
+**Tipo:** Variável contínua (razão)
+**Unidade:** Segundos (s)
+**Método de Medição:** Cálculo estatístico sobre distribuição
+**Aplicável a:** Análise de SLA e piores casos
+
+VD9: Desvio Padrão do Tempo
+
+**Definição:** Variabilidade temporal
+**Tipo:** Variável contínua (razão)
+**Unidade:** Segundos (s)
+**Método de Medição:** σ = √[Σ(xi-μ)²/n]
+**Aplicável a:** Estabilidade de desempenho
+
+VD10: Número de Tokens Gerados
+
+**Definição:** Tamanho da resposta
+**Tipo:** Variável discreta (contagem)
+**Unidade:** Número de tokens
+**Método de Medição:** Extração de metadados da API
+**Aplicável a:** Todas as respostas
+
+##### Categoria 3: Custo
+VD11: Custo por Resposta
+
+**Definição:** Custo financeiro total
+**Tipo:** Variável contínua (razão)
+**Unidade:** Dólares americanos (USD)
+**Método de Medição:** (tokens_input × preço_input) + (tokens_output × preço_output)
+**Aplicável a:** Todas as execuções
+
+VD12: Índice de Complexidade da Tarefa
+
+**Definição:** Score de dificuldade pré-atribuído
+**Tipo:** Variável ordinal
+**Unidade:** Escala 1-10
+**Método de Medição:** Classificação por especialistas usando rubrica
+**Aplicável a:** Caracterização dos prompts
+
+##### Categoria 4: Consistência e Robustez
+
+VD13: Coeficiente de Variação
+
+**Definição:** Variabilidade relativa entre execuções
+**Tipo:** Variável contínua (razão)
+**Unidade:** Percentual (%)
+**Método de Medição:** CV = (σ/μ) × 100%
+**Aplicável a:** Análise de consistência intra-modelo
+
+VD14: Similaridade Semântica
+
+**Definição:** Consistência de conteúdo entre repetições
+**Tipo:** Variável contínua (razão)
+**Unidade:** Adimensional (0-1)
+**Método de Medição:** Cosine similarity de embeddings
+**Aplicável a:** Análise de determinismo
+
+VD15: Taxa de Alucinação
+
+**Definição:** Frequência de informações falsas/inventadas
+**Tipo:** Variável contínua (razão)
+**Unidade:** Percentual (0-100%)
+**Método de Medição:** Verificação humana + busca em bases de conhecimento
+**Aplicável a:** Principalmente perguntas factuais
+
+#### 8.5 Variáveis de Controle / Bloqueio
+VC1: Tamanho do Prompt (Tokens de Entrada)
+
+**Justificativa:** Prompts maiores podem afetar tempo e custo
+**Controle:** Documentação de todos os tamanhos; análise de correlação
+**Tipo:** Contínua (contagem)
+
+VC2: Idioma do Prompt
+
+**Justificativa:** Modelos podem ter desempenho diferente em PT vs. EN
+**Controle:** Balanceamento aproximado (60% português, 40% inglês)
+**Tipo:** Categórica (2 níveis)
+
+VC3: Horário da Execução
+
+**Justificativa:** Carga de servidor pode afetar latência
+**Controle:** Distribuição uniforme ao longo do dia; registro de timestamps
+**Tipo:** Temporal (timestamp)
+
+VC4: Avaliador Humano
+
+**Justificativa:** Diferentes avaliadores podem ter critérios ligeiramente diferentes
+**Controle:** Randomização de atribuição; análise de concordância inter-avaliadores
+**Tipo:** Categórica (3 níveis)
+
+VC5: Versão da API
+
+**Justificativa:** Atualizações podem mudar comportamento
+**Controle:** Versionamento explícito; documentação precisa
+**Tipo:** Categórica (string de versão)
+
+VC6: Ordem de Apresentação
+
+**Justificativa:** Efeitos de ordem em avaliação humana
+**Controle:** Randomização completa da ordem
+**Tipo:** Ordinal
+
+VC7: Hiperparâmetros do Modelo
+
+**Justificativa:** Configurações afetam comportamento
+**Controle:** Fixação: temperatura=0.7, max_tokens=2048, top_p=0.9 para todos
+**Tipo:** Múltiplas contínuas (fixadas)
+
+#### 8.6 Possíveis variáveis de confusão
+
+As possíveis variáveis de confusão que podem afetar os resultados incluem mudanças temporais nos modelos, já que fornecedores podem atualizar versões silenciosamente durante o experimento, o que pode levar a diferenças atribuídas ao modelo quando, na verdade, decorrem da versão utilizada. A mitigação envolve versionamento rigoroso, coleta concentrada em períodos curtos e análise temporal, acompanhada do monitoramento do desempenho entre a primeira e a última semana. Também há variações de carga de servidor, pois APIs podem apresentar latência instável dependendo da infraestrutura, fazendo com que tempos de resposta reflitam a carga e não o comportamento do modelo. Para reduzir esse efeito, recomenda-se distribuir medições ao longo do tempo, realizar múltiplas repetições e aplicar análise de variância, monitorando o desvio padrão dos tempos por modelo.
+
+Outro fator relevante são as diferenças de motivação ou fadiga dos avaliadores, já que o estado psicológico pode influenciar a consistência das avaliações. Esse problema pode ser reduzido com pausas obrigatórias, randomização da ordem de análise e inspeção de tendências temporais, observando a correlação entre ordem e pontuação. O viés de familiaridade também deve ser considerado, pois avaliadores podem ter preferência prévia por certos modelos, influenciando julgamentos subjetivos. O cegamento das respostas é a principal forma de mitigação, enquanto o monitoramento envolve a análise dos padrões individuais de avaliação.
+
+Além disso, alguns prompts podem favorecer inadvertidamente determinados modelos, o que torna a comparação injusta. A mitigação inclui revisão independente do dataset e diversificação máxima dos prompts, com monitoramento feito por meio da análise de interação entre modelo e prompt específico. Diferenças de infraestrutura também podem introduzir confusão, como no caso de LLaMA rodando localmente enquanto outros modelos utilizam APIs em nuvem, o que afeta a comparabilidade dos tempos. A solução é usar o mesmo tipo de infraestrutura ou analisar eficiência separadamente, sempre documentando o setup detalhadamente.
+
+Por fim, existem efeitos de aprendizagem do dataset, já que modelos podem ter visto variações dos prompts durante o treinamento, produzindo respostas artificialmente boas. Para minimizar esse risco, recomenda-se o uso de prompts originais e variados, acompanhados de monitoramento que identifica respostas possivelmente memorizadas ou excessivamente perfeitas.
+
+#### 9. Desenho Experimental
+##### 9.1 Tipo de Desenho
+Desenho Selecionado: Fatorial Completo (Full Factorial Design) com Medidas Repetidas
+Estrutura: 4 × 5 × 3 (Modelo × Categoria × Repetição)
+Características Principais:
+Fatorial Completo:
+
+Todos os níveis de todos os fatores são cruzados
+Permite análise de efeitos principais E interações
+4 modelos × 5 categorias × 50 prompts/categoria × 3 repetições = 3.000 observações
+
+**Medidas Repetidas:**
+
+Cada prompt é avaliado 3 vezes pelo mesmo modelo
+Permite análise de consistência intra-modelo
+Requer técnicas estatísticas apropriadas (ANOVA de medidas repetidas ou modelos mistos)
+
+Between-Subjects (Modelo):
+
+Cada resposta é gerada por apenas um modelo
+Comparação entre modelos independentes
+
+Within-Subjects (Categoria, Repetição):
+
+Todos os modelos são expostos a todas as categorias
+Cada [modelo × prompt] tem 3 repetições
+
+**Classificação Formal:**
+
+Tipo: Quasi-experimento (não há controle verdadeiro, mas rigoroso)
+Estrutura: Fatorial misto (between + within)
+Aleatorização: Parcial (ordem de execução e apresentação)
+Cegamento: Duplo-cego na avaliação humana
+
+**Justificativa da Escolha:**
+A escolha do desenho experimental se justifica por sua ampla abrangência, já que o uso de um fatorial completo possibilita responder diversas questões de pesquisa de maneira integrada. Ele também se mostra eficiente porque a abordagem within-subjects aplicada à categoria maximiza a quantidade de informação obtida por observação, permitindo comparações diretas entre modelos em condições equivalentes. Além disso, a inclusão de repetições aumenta a consistência dos resultados ao possibilitar a análise da variabilidade intra-modelo, garantindo maior confiabilidade nas conclusões. O desenho também permite identificar interações importantes, verificando se os efeitos de um modelo dependem da categoria — aspecto fundamental para gerar recomendações práticas adequadas. Por fim, trata-se de uma alternativa viável, pois oferece um bom equilíbrio entre a quantidade de dados produzidos e os custos e o tempo necessários para conduzir o experimento.
+
+#### 9.2 Randomização e Alocação
+
+O Que É Randomizado:
+
+**R1:** Ordem de Execução dos Prompts
+
+- O quê: Sequência em que os 250 prompts são processados
+Como: Gerador de números aleatórios (Python random.shuffle com seed fixo)
+Por quê: Evitar efeitos de ordem ou temporais sistemáticos
+Procedimento: Uma ordem aleatória única usada consistentemente para todos os 4 modelos
+
+**R2:** Ordem de Apresentação para Avaliadores
+
+- O quê: Sequência em que as 400 respostas são apresentadas para avaliação humana
+Como: Random.shuffle independente para cada avaliador
+Por quê: Evitar viés de ordem, fadiga sistemática
+Procedimento: Cada avaliador recebe ordem única e diferente
+
+**R3:** Seleção de Respostas para Avaliação Humana
+
+- O quê: Qual das 3 execuções é selecionada para avaliação (1, 2 ou 3)
+Como: Seleção aleatória uniforme
+Por quê: Evitar viés de seleção sistemática (ex: sempre primeira execução)
+Procedimento: Random.choice([1,2,3]) para cada [modelo × prompt]
+
+**O Que NÃO É Randomizado:**
+
+Alguns elementos do experimento não são randomizados. A alocação de prompts aos modelos permanece fixa, já que todos os modelos processam exatamente os mesmos prompts em um desenho completamente balanceado. Da mesma forma, a associação entre prompts e categorias não passa por randomização, pois cada prompt pertence naturalmente a uma categoria previamente definida. Os hiperparâmetros também não são sorteados: são mantidos em valores padrão e iguais para todos os modelos, garantindo comparabilidade. Por fim, os avaliadores não são distribuídos aleatoriamente entre subconjuntos de respostas; todos analisam as mesmas 400 respostas selecionadas, assegurando uniformidade nas avaliações.
+
+##### 9.3 Balanceamento e Contrabalançamento
+| Código | Tipo de Balanceamento                   | Descrição                                      | Justificativa / Objetivo                               |
+|--------|------------------------------------------|------------------------------------------------|---------------------------------------------------------|
+| **B1** | Entre Categorias                         | 50 prompts por categoria                       | Garante comparabilidade entre categorias                |
+| **B2** | Entre Níveis de Complexidade (dentro das categorias) | 30% baixa, 50% média, 20% alta                | Representa uma distribuição realista de casos de uso    |
+| **B3** | Entre Idiomas (aproximado)               | ~60% português, ~40% inglês                    | Balanceamento flexível conforme disponibilidade         |
+| **B4** | Entre Modelos                            | Todos os modelos recebem os mesmos 250 prompts | Garante comparabilidade direta entre modelos            |
+
+Contrabalanceamento:
+
+| Código | Tipo de Contrabalançamento                | Descrição                                                     | Objetivo / Justificativa                                      |
+|--------|---------------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------|
+| **CB1** | Ordem de Avaliação (entre avaliadores)      | Cada avaliador recebe uma ordem diferente de respostas        | Reduz efeitos de ordem, que se cancelam ao agregar resultados |
+| **CB2** | Seleção de Execução para Avaliação          | Execuções 1, 2 e 3 são selecionadas de forma aproximadamente uniforme | Evita viés de sempre escolher a primeira ou última execução   |
+| **CB3** | Timing da Coleta                            | Prompts executados uniformemente ao longo de 3 semanas, dias e horários | Distribui efeitos temporais (ex.: carga de servidor)          |
+
+
+Verificações de Balanceamento Planejadas:
+
+- Tabela de contingência: Modelo × Categoria (deve ser 50 para todas as células)
+- Teste qui-quadrado de independência: Idioma × Modelo (verificar se distribuição é uniforme)
+- Análise de distribuição temporal: Execuções por dia/horário
+- ANOVA para verificar se características dos prompts (tamanho, complexidade) estão balanceadas entre categorias
+
+##### 9.4 Número de Grupos e Sessões
+| Dimensão      | Número de Grupos | Descrição                                                |
+|----------------|-------------------|-----------------------------------------------------------|
+| **Modelos**     | 4 grupos          | GPT-4, Claude, Gemini, LLaMA                             |
+| **Categorias**  | 5 grupos          | Código, Texto, Lógica, Criatividade, Factual             |
+| **Complexidade**| 3 níveis          | Baixa, Média, Alta                                       |
+| **Total de Células** | 4 × 5 = 20  | Combinações Modelo × Categoria                           |
+
+**Sessões/Rodadas:**
+Para Coleta de Dados (Execução dos Modelos):
+
+- Número de Sessões por [Modelo × Prompt]: 3 repetições
+- Total de Execuções: 4 modelos × 250 prompts × 3 repetições = 3.000
+- Distribuição Temporal: ~500 execuções por semana ao longo de 3 semanas
+
+**Para Avaliação Humana:**
+
+- Sessões por Avaliador: Flexível (pausas a cada 50 avaliações)
+- Total de Avaliações por Avaliador: 400 respostas
+- Sessões Estimadas: ~8 sessões de 50 avaliações cada
+- Duração: ~5 dias úteis por avaliador
+
+A escolha de utilizar três repetições por prompt (n = 3) fundamenta-se em um equilíbrio entre rigor metodológico e viabilidade prática. Esse número é suficiente para permitir a avaliação da consistência das respostas dos modelos, possibilitando o cálculo de estatísticas fundamentais como média, desvio padrão e coeficiente de variação. Além disso, trata-se de uma quantidade economicamente viável, pois o custo total correspondente a três execuções por prompt permanece dentro das restrições orçamentárias do estudo. A decisão também está alinhada com práticas consolidadas na literatura, na qual estudos comparativos entre modelos frequentemente utilizam de três a cinco repetições por condição experimental.
+
+Apesar dessas vantagens, reconhece-se uma limitação inerente: três repetições oferecem poder estatístico limitado para análises aprofundadas de variabilidade intra-prompt, que idealmente requereriam entre cinco e dez repetições para estimativas mais robustas. Ainda assim, o estudo adota esse número como parte de um trade-off consciente. Optou-se por coletar 250 prompts com três repetições cada, em vez de reduzir o conjunto para 150 prompts com cinco repetições, uma vez que maximizar a diversidade de tarefas avaliadas traz maior representatividade ao experimento, preservando um nível aceitável de consistência estatística.
