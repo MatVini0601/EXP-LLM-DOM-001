@@ -744,3 +744,593 @@ Para Coleta de Dados (Execução dos Modelos):
 A escolha de utilizar três repetições por prompt (n = 3) fundamenta-se em um equilíbrio entre rigor metodológico e viabilidade prática. Esse número é suficiente para permitir a avaliação da consistência das respostas dos modelos, possibilitando o cálculo de estatísticas fundamentais como média, desvio padrão e coeficiente de variação. Além disso, trata-se de uma quantidade economicamente viável, pois o custo total correspondente a três execuções por prompt permanece dentro das restrições orçamentárias do estudo. A decisão também está alinhada com práticas consolidadas na literatura, na qual estudos comparativos entre modelos frequentemente utilizam de três a cinco repetições por condição experimental.
 
 Apesar dessas vantagens, reconhece-se uma limitação inerente: três repetições oferecem poder estatístico limitado para análises aprofundadas de variabilidade intra-prompt, que idealmente requereriam entre cinco e dez repetições para estimativas mais robustas. Ainda assim, o estudo adota esse número como parte de um trade-off consciente. Optou-se por coletar 250 prompts com três repetições cada, em vez de reduzir o conjunto para 150 prompts com cinco repetições, uma vez que maximizar a diversidade de tarefas avaliadas traz maior representatividade ao experimento, preservando um nível aceitável de consistência estatística.
+
+#### 10. População, Sujeitos e Amostragem
+##### 10.1 População-Alvo
+##### População de Modelos
+
+**Definição:** Conjunto de todos os Large Language Models com as seguintes características:
+
+| Critério | Descrição |
+|---------|-----------|
+| Multimodalidade | Texto como input e output |
+| Tamanho | ≥ 7 bilhões de parâmetros |
+| Disponibilidade | Pública (comercial ou open source) |
+| Lançamento | 2023–2025 |
+| Idiomas | Suporte ao inglês (preferencialmente também português) |
+| Tamanho Estimado | 50–70 modelos |
+
+**Exemplos de Membros:**
+
+| Categoria | Modelos |
+|----------|---------|
+| Comerciais | GPT-4, Claude 3.x, Gemini, Command R+, Grok |
+| Open Source | LLaMA 3.x, Mistral, Mixtral, Falcon, Phi-3 |
+| Excluídos (especializados) | CodeLlama, WizardCoder |
+
+##### População de Aplicações (Tarefas)
+
+**Definição:** Universo de aplicações práticas de LLMs em contextos profissionais e acadêmicos.
+
+| Domínio | Exemplos |
+|---------|----------|
+| Desenvolvimento de software | Programação, debugging |
+| Processamento documental | Resumos, análises, extrações |
+| Suporte à decisão | Solução de problemas, recomendações |
+| Conteúdo criativo | Escrita, geração de ideias |
+| Informação | Busca, organização, categorização |
+
+
+##### População de Avaliadores Potenciais
+
+| Critério | Descrição |
+|----------|-----------|
+| Formação | Graduação em área técnica |
+| Experiência | ≥ 2 anos em tecnologia/IA |
+| Localização | Brasil |
+| Idiomas | Português e inglês |
+| Tamanho estimado | Centenas de profissionais |
+
+
+##### 10.2 Critérios de Inclusão de Sujeitos
+
+##### Para Avaliadores Humanos
+
+| Código | Critério Obrigatório |
+|--------|------------------------|
+| CI1 | Graduação completa em área de tecnologia |
+| CI2 | ≥ 2 anos de experiência em software/IA/ML/dados |
+| CI3 | Familiaridade com IA, ML e LLMs |
+| CI4 | Fluência em português e inglês |
+| CI5 | Disponibilidade de 20h ao longo de 2 semanas |
+| CI6 | Aceite formal + confidencialidade |
+
+**Critérios Desejáveis:**
+
+| Código | Critério |
+|--------|----------|
+| — | Diversidade de background (código, NLP, dados) |
+| — | Mestrado/Doutorado |
+| — | Publicações na área |
+| — | Experiência prévia em avaliação |
+
+
+##### Para Prompts (Objetos de Estudo)
+
+| Código | Critério |
+|--------|----------|
+| CI7 | Clareza |
+| CI8 | Verificabilidade |
+| CI9 | Relevância prática |
+| CI10 | Resolvível em ≤ 2048 tokens |
+| CI11 | Diversidade dentro da categoria |
+
+
+#### 10.3 Critérios de Exclusão de Sujeitos
+
+##### Para Avaliadores Humanos
+
+| Código | Motivo de Exclusão |
+|--------|---------------------|
+| CE1 | Conflito de interesse com desenvolvedores dos modelos |
+| CE2 | Viés declarado por modelos específicos |
+| CE3 | Ausência de conhecimentos básicos necessários |
+| CE4 | Indisponibilidade para cumprir cronograma |
+| CE5 | Histórico ético insuficiente |
+| CE6 | Barreiras linguísticas relevantes |
+
+##### Para Prompts
+
+| Código | Motivo de Exclusão |
+|--------|---------------------|
+| CE7 | Ambiguidade excessiva |
+| CE8 | Conteúdo inadequado (ofensivo, ilegal, discriminatório) |
+| CE9 | Dependência de contexto não fornecido |
+| CE10 | Tarefas multimodais (imagem/áudio/vídeo) |
+| CE11 | Respostas > 2048 tokens |
+| CE12 | Duplicação de prompts no dataset |
+
+#### 10.4 Tamanho da Amostra Planejado (por Grupo)
+
+##### Amostra de Modelos
+
+| Grupo | Modelo               | N (Prompts) | N (Execuções) | N (para Aval. Humana) |
+|-------|-----------------------|-------------|----------------|-------------------------|
+| G1    | GPT-4 Turbo           | 250         | 750            | 100                     |
+| G2    | Claude Sonnet 3.5     | 250         | 750            | 100                     |
+| G3    | Gemini Pro 1.5        | 250         | 750            | 100                     |
+| G4    | LLaMA 3.1 70B         | 250         | 750            | 100                     |
+| **TOTAL** | -                 | **250 únicos** | **3.000**   | **400**                 |
+
+
+##### Amostra de Avaliadores
+
+| Item | Valor |
+|------|--------|
+| Número de especialistas | **3** |
+| Avaliações por avaliador | **400** respostas (100 por modelo) |
+| Total de avaliações | **1.200** |
+
+
+##### Limitações do Tamanho Amostral
+
+| Limitação | Explicação |
+|-----------|------------|
+| Subgrupos pequenos | Combinações específicas (ex.: prompts muito complexos) podem ter apenas ~10 casos. |
+| Poucos avaliadores | N = 3 é o mínimo aceitável; mais avaliadores aumentariam a confiabilidade. |
+
+#### 11. Instrumentação e Protocolo Operacional
+
+##### 11.1 Instrumentos de Coleta
+
+| ID | Instrumento | Finalidade Principal | Tecnologias |
+|----|-------------|----------------------|-------------|
+| I1 | Script de Automação | Execução controlada de modelos e captura de respostas | Python 3.11, APIs OpenAI/Anthropic/Google, Transformers, Pandas, SQLAlchemy, PostgreSQL/SQLite |
+| I2 | Ferramenta de Avaliação de Código | Compilar, testar e analisar código | Docker, gcc/javac/node/python, PyTest, SonarQube |
+| I3 | Sistema de Verificação Factual | Checagem automática/semi-automática de fatos | Python, Wikipedia API, SPARQL, Selenium |
+| I4 | Plataforma de Avaliação Humana | Avaliação cega em escala Likert | React, Node.js/Express, PostgreSQL, JWT |
+| I5 | Análise de Similaridade Semântica | Embeddings e detecção de outliers | sentence-transformers, scikit-learn, UMAP, Python |
+| I6 | Análise Estatística | Testes inferenciais e relatórios | R, tidyverse, lme4, ggplot2, psych, irr |
+
+
+##### I1: Script de Automação de Execução
+
+| Aspecto | Detalhes |
+|---------|----------|
+| Funções principais | Autenticação, leitura de prompts, envio de requisições, medir tempo, capturar tokens/custo, logging, retries, rate-limit, salvar em BD |
+| Tecnologias | Python 3.11; openai, anthropic, google-generativeai, transformers, pandas, sqlalchemy |
+| Banco de dados | PostgreSQL ou SQLite |
+| Validação | Teste piloto com 10 prompts (precisão ±10ms) |
+
+##### I2: Ferramenta de Avaliação de Código
+
+##### Componentes
+
+| Módulo | Função | Tecnologias |
+|--------|--------|--------------|
+| Compilação | Compilação segura em sandbox | Docker, gcc, javac, node, python |
+| Testes | Execução de casos de teste e performance | PyTest |
+| Análise Estática | Linting, complexidade, bugs | SonarQube API, ESLint, Pylint |
+
+
+##### I3: Sistema de Verificação Factual
+
+| Aspecto | Detalhes |
+|---------|----------|
+| Funções | Comparação com gabarito, busca automática, verificação lógica, marcação manual |
+| Fontes | Wikipedia API, Wikidata/SPARQL, Google Search |
+| Tecnologias | Python, wikipedia-api, SPARQL client, Selenium |
+
+
+##### I4: Plataforma de Avaliação Humana
+
+##### Funcionalidades para Avaliadores
+- Login seguro  
+- Resposta + prompt original  
+- Escala Likert (1–5)  
+- Comentários opcionais  
+- Navegação Próximo/Anterior  
+- Progresso (X/400)  
+- Salvamento automático  
+- Pausa obrigatória a cada 50 avaliações  
+
+##### Funcionalidades para Administrador
+- Dashboard e progresso por avaliador  
+- Análise preliminar de concordância  
+- Exportação dos dados  
+
+##### Segurança
+- Cegamento total (IDs anônimos)  
+- Randomização da ordem  
+- Auditoria das ações  
+
+| Tecnologia | Uso |
+|------------|-----|
+| React.js | Frontend |
+| Node.js + Express | Backend |
+| PostgreSQL | Banco |
+| JWT | Autenticação |
+
+
+##### I5: Sistema de Similaridade Semântica
+
+| Aspecto | Detalhes |
+|---------|----------|
+| Funções | Embeddings, cosine similarity, clusters, outliers, variabilidade |
+| Modelo | all-MiniLM-L6-v2 (384 dims) |
+| Tecnologias | Python, sentence-transformers, scikit-learn, UMAP, matplotlib/seaborn |
+
+
+##### I6: Instrumentos de Análise Estatística
+
+| Item | Conteúdo |
+|------|----------|
+| Ambiente | R 4.3.2 + RStudio |
+| Pacotes principais | tidyverse, ggplot2, lme4, car, psych, irr, effsize, coin, dunn.test |
+| Notebooks | 01_data_cleaning, 02_descriptive_stats, 03_inferential_tests, 04_visualizations, 05_final_report |
+
+
+#### 11.2 Materiais de Suporte
+##### MS1: Guia do Experimento (Documento Mestre)
+
+Conteúdo:
+
+- Visão geral do experimento
+- Objetivos e questões de pesquisa
+- Protocolo completo passo a passo
+- Responsabilidades de cada participante
+- Cronograma detalhado
+- Contatos e suporte
+
+**Formato:** PDF de 15-20 páginas
+
+##### MS2: Guia do Avaliador
+
+Conteúdo:
+
+- Introdução e importância da tarefa
+- Rubrica de avaliação detalhada
+- Exemplos comentados de cada nível (1-5)
+- FAQ sobre situações comuns
+- Como lidar com dúvidas
+- Política de pausas e bem-estar
+
+**Formato:** PDF de 8-10 páginas + planilha de referência rápida (1 página)
+
+#### 11.3 Procedimento Experimental: Versão Simplificada por Fases
+
+##### **FASE 0 — Preparação**
+
+**Objetivos da Fase**
+- Configurar infraestrutura  
+- Criar e validar dataset  
+- Testar scripts e instrumentos  
+
+**Resumo das Atividades**
+
+| Atividade      | Descrição Simplificada |
+|----------------|------------------------|
+| Infraestrutura | Configurar servidor/VM, instalar dependências, validar APIs, configurar BD e testar conectividade |
+| Dataset        | Coletar 400 prompts, adaptar/organizar, classificar por categoria/complexidade, criar gabaritos e balancear 250 prompts finais |
+| Validação      | Revisão independente por 2 revisores e reunião de consenso |
+| Teste Piloto   | Executar 120 testes iniciais, validar funcionamento e ajustar protocolo |
+
+
+##### **FASE 1: Coleta Automatizada**
+
+**Objetivos da Fase**
+- Executar os 3.000 testes de modelos  
+- Registrar tempo, tokens, custo e respostas  
+- Executar verificações automáticas  
+
+**Fluxo Simplificado**
+
+**Execução diária**
+- ~143 execuções/dia
+
+**Para cada prompt × modelo × repetição**
+1. Enviar requisição  
+2. Registrar tempo, tokens, custo, resposta  
+3. Repetir até 3 vezes em caso de erro  
+4. Salvar no banco  
+
+**Métricas automáticas**
+- **Código:** compilação, testes, linting, bugs  
+- **Factual/Lógico:** comparação com gabarito  
+- **Consistência:** embeddings, similaridade, coeficiente de variação  
+
+**Monitoramento**
+- Dashboard atualizado por hora  
+- Backups diários  
+- Relatório semanal
+
+##### **FASE 2: Avaliação Humana**
+
+**Objetivos da Fase**
+- Avaliar 400 respostas com 3 avaliadores  
+- Garantir cegamento, concordância e consistência  
+
+**Resumo das Atividades**
+
+| Atividade       | Descrição Simplificada |
+|------------------|------------------------|
+| Preparação      | Selecionar 400 respostas e randomizar ordem para avaliadores |
+| Treinamento     | Explicação da rubrica, prática e calibração (Kappa preliminar) |
+| Refinamento (se necessário) | Recalibrar avaliadores se Kappa < 0.60 |
+| Avaliação    | 400 avaliações por avaliador com pausas obrigatórias |
+| Concordância    | Calcular Kappa, ICC e resolver discordâncias extremas |
+
+
+##### **FASE 3:  Análise de Dados**
+
+**Objetivos da Fase**
+- Limpar, integrar e analisar dados  
+- Testar hipóteses  
+- Produzir visualizações e relatório final  
+
+**Resumo das Atividades**
+
+| Atividade | Descrição Simplificada |
+|-----------|------------------------|
+| Limpeza | Importar dados, tratar faltantes/outliers, transformar variáveis |
+| Análises | Estatísticas descritivas, ANOVA/Kruskal, interação modelo×categoria, análise de trade-offs |
+| Visualizações + Relatório | Criar gráficos finais e consolidar relatório/documentação |
+
+![Fluxograma](https://github.com/MatVini0601/EXP-LLM-DOM-001/blob/main/images/fluxograma.png)
+
+#### 12. Plano de Análise de Dados (Pré-Execução)
+
+##### 12.1 Estratégia Geral de Análise
+
+**Abordagem Multi-Nível:**
+
+O plano de análise segue estrutura hierárquica para responder às questões de pesquisa:
+
+**Nível 1: Análises Descritivas**
+- Objetivo: Caracterizar dados e identificar padrões gerais
+- Métodos: Estatísticas sumárias, visualizações exploratórias
+- Output: Tabelas descritivas, gráficos preliminares
+
+**Nível 2: Análises Inferenciais Principais**
+- Objetivo: Testar hipóteses formais sobre diferenças entre modelos
+- Métodos: ANOVA/Kruskal-Wallis, testes post-hoc, tamanhos de efeito
+- Output: Tabelas de significância, comparações par-a-par
+
+**Nível 3: Análises de Interações e Moderadores**
+- Objetivo: Investigar se efeitos dependem de contexto (categoria, complexidade)
+- Métodos: ANOVA fatorial, análise de efeitos simples
+- Output: Gráficos de interação, tabelas estratificadas
+
+**Nível 4: Análises de Relações e Trade-offs**
+- Objetivo: Quantificar relações entre custo, qualidade, eficiência
+- Métodos: Correlação, regressão, análise de custo-benefício
+- Output: Scatter plots, modelos preditivos
+
+**Nível 5: Análises Qualitativas Complementares**
+- Objetivo: Extrair insights de comentários e casos especiais
+- Métodos: Análise temática de comentários dos avaliadores
+- Output: Lista de insights, exemplos ilustrativos
+
+**Mapeamento Questões x Análises:**
+
+| **Questão** | **Análise Principal** | **Análise Secundária** |
+|-------------|----------------------|------------------------|
+| Q1.1 (Precisão factual) | ANOVA de taxa_acerto por modelo | Post-hoc Tukey, Cohen's d |
+| Q1.2 (Qualidade código) | ANOVA de taxa_compilacao | Análise de bugs, exemplos |
+| Q1.3 (Avaliação humana) | ANOVA de score_humano | Kappa, análise por categoria |
+| Q2.1 (Tempo) | ANOVA/KW de tempo_medio | Percentil 95, variabilidade |
+| Q2.2 (Desempenho sob carga) | Análise de desvio_padrao | Correlação com horário |
+| Q2.3 (Tempo vs. Tokens) | Correlação + Regressão | Scatter plots por modelo |
+| Q3.1 (Custo-benefício) | Razão Qualidade/Custo | Ranking, fronteira de Pareto |
+| Q3.2 (Justificativa premium) | Regressão Qualidade~Custo | Teste de proporcionali dade |
+| Q3.3 (Economia por complexidade) | ANOVA 3-way: Modelo×Complexidade×Custo | Interações |
+| Q4.1 (Consistência) | ANOVA de coef_variacao | Similaridade semântica |
+| Q4.2 (Robustez) | Análise de sensibilidade | Casos com alta variação |
+| Q4.3 (Alucinação) | ANOVA de taxa_aluc | Análise qualitativa de casos |
+
+##### 12.2 Métodos Estatísticos Planejados
+
+**Testes Paramétricos:**
+
+**T1: ANOVA One-Way**
+- **Uso:** Comparar médias entre 4 modelos para uma métrica
+- **Pressupostos:** Normalidade, homogeneidade de variâncias, independência
+- **Fórmula:** F = MS_entre / MS_dentro
+- **Interpretação:** p < 0.05 indica diferença significativa entre grupos
+- **Software:** R: `aov()`, `car::Anova()`
+
+**T2: ANOVA Two-Way (Fatorial)**
+- **Uso:** Avaliar efeitos de Modelo e Categoria + interação
+- **Modelo:** Y ~ Modelo + Categoria + Modelo:Categoria
+- **Interpretação:** 
+  - Efeito principal de Modelo: diferença média entre modelos
+  - Efeito principal de Categoria: diferença média entre categorias
+  - Interação: efeito de modelo depende de categoria
+- **Software:** R: `aov(Y ~ A * B)`
+
+**T3: ANOVA de Medidas Repetidas**
+- **Uso:** Analisar 3 repetições por [modelo × prompt]
+- **Modelo:** Modelo misto com efeito aleatório de prompt
+- **Software:** R: `lme4::lmer(Y ~ Modelo + (1|prompt_id))`
+
+**T4: Testes Post-Hoc (Tukey HSD)**
+- **Uso:** Comparações par-a-par após ANOVA significativa
+- **Correção:** Controla taxa de erro familywise
+- **Software:** R: `TukeyHSD()`
+
+**T5: Test t Pareado**
+- **Uso:** Comparar dois modelos específicos
+- **Aplicação:** Testes direcionados para hipóteses específicas
+- **Software:** R: `t.test(paired=TRUE)`
+
+**Testes Não-Paramétricos (Se Pressupostos Violados):**
+
+**T6: Kruskal-Wallis**
+- **Uso:** Alternativa não-paramétrica ao ANOVA
+- **Pressupostos:** Apenas independência (não assume normalidade)
+- **Software:** R: `kruskal.test()`
+
+**T7: Teste de Dunn**
+- **Uso:** Post-# Testes Estatísticos, Tamanhos de Efeito e Confiabilidade
+
+##### **Testes Não-Paramétricos**
+
+##### **T7: Post-hoc para Kruskal-Wallis**
+
+| Item | Descrição |
+|------|-----------|
+| **Correção** | Bonferroni ou Holm |
+| **Software** | R: `dunn.test::dunn.test()` |
+
+
+##### **T8: Teste de Wilcoxon**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Comparação de dois grupos (alternativa ao t-test) |
+| **Software** | R: `wilcox.test()` |
+
+##### **Testes de Associação**
+
+##### **T9: Correlação de Pearson**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Relação linear entre variáveis contínuas (ex: custo vs. qualidade) |
+| **Pressupostos** | Normalidade bivariada |
+| **Interpretação** | r ∈ [-1, 1]; \|r\| > 0.7 = forte |
+| **Software** | R: `cor.test(method = "pearson")` |
+
+##### **T10: Correlação de Spearman**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Alternativa não-paramétrica para relações monotônicas |
+| **Software** | R: `cor.test(method = "spearman")` |
+
+
+#### **Modelos de Regressão**
+
+##### **T11: Regressão Linear Simples**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Predizer qualidade a partir de custo |
+| **Modelo** | Qualidade = β₀ + β₁ × Custo + ε |
+| **Software** | R: `lm()` |
+
+
+##### **T12: Regressão Linear Múltipla**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Incluir múltiplos preditores |
+| **Modelo** | Qualidade = β₀ + β₁×Custo + β₂×Tempo + β₃×Modelo_dummy + ε |
+| **Software** | R: `lm()` |
+
+
+##### **T13: Modelos Mistos (LMM)**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Dados hierárquicos (repetições dentro de prompts) |
+| **Modelo** | Y ~ Modelo + Categoria + (1 | prompt_id) |
+| **Software** | R: `lme4::lmer()` |
+
+##### **Tamanhos de Efeito**
+
+##### **E1: Cohen's d**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Diferença padronizada entre dois grupos |
+| **Fórmula** | d = (M₁ - M₂) / SD_pooled |
+| **Interpretação** | 0.2 = pequeno, 0.5 = médio, 0.8 = grande |
+| **Software** | R: `effsize::cohen.d()` |
+
+##### **E2: Eta-Squared (η²)**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Proporção da variância explicada em ANOVA |
+| **Fórmula** | η² = SS_efeito / SS_total |
+| **Interpretação** | 0.01 = pequeno, 0.06 = médio, 0.14 = grande |
+| **Software** | R: `effectsize::eta_squared()` |
+
+##### **E3: Cliff's Delta**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Tamanho de efeito não-paramétrico |
+| **Interpretação** | Probabilidade de grupo1 > grupo2 |
+| **Software** | R: `effsize::cliff.delta()` |
+
+##### **Confiabilidade**
+
+##### **C1: Kappa de Cohen**
+
+| Item | Descrição |
+|------|-----------|
+| **Uso** | Concordância interavaliadores |
+| **Fórmula** | κ = (Po − Pe) / (1 − Pe) |
+| **Interpretação** | <0.4 = pobre; 0.4–0.6 = moderado;
+
+#### 12.4 Plano de Análise para Dados Qualitativos (Versão Simplificada)
+
+##### Fontes de Dados
+- **DQ1 – Comentários dos Avaliadores:** justificativas, observações, problemas.
+- **DQ2 – Observações do Piloto:** notas técnicas, falhas, feedback do treinamento.
+- **DQ3 – Exemplos Ilustrativos:** respostas boas/ruins, discordâncias, alucinações.
+
+
+##### Método: Análise Temática
+
+**Etapa 1 — Familiarização**
+- Ler todos os comentários.
+- Identificar padrões iniciais.
+
+**Etapa 2 — Codificação Inicial (exemplos)**
+- `ERRO_FACTUAL`
+- `INCOMPLETO`
+- `EXCELENTE_INSIGHT`
+- `PROBLEMA_CLAREZA`
+- `CRIATIVIDADE_ALTA`
+- `CODIGO_INEFICIENTE`
+- `ALUCINACAO`
+
+**Etapa 3 — Agrupamento Temático**
+- Qualidade técnica  
+- Clareza e apresentação  
+- Criatividade  
+- Problemas específicos por tarefa  
+
+**Etapa 4 — Quantificação**
+- Contar frequência dos códigos por modelo.
+- Testar associação entre modelo e tipo de erro (ex: Qui-quadrado).
+
+**Etapa 5 — Exemplos Representativos**
+- Selecionar 2–3 exemplos por tema.
+- Escolher exemplos variados entre modelos.
+- Anonimizar se necessário.
+
+**Etapa 6 — Integração com Quantitativos**
+- Usar comentários para explicar padrões numéricos.
+- Triangulação para validar resultados.
+
+## Outputs Esperados
+- **Tabela de Frequência de Códigos**
+- **Seção narrativa no relatório**
+- **Citações ilustrativas**
+
+## Limitações
+- Comentários são voluntários → amostra pequena.  
+- Viés de seleção → mais comentários em casos extremos.  
+- Codificação subjetiva → mitigada por regras claras.  
+
+
+## Uso Adequado
+- Complementar resultados quantitativos  
+- Gerar hipóteses  
+- Oferecer contexto  
+
+
