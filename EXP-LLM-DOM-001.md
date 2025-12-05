@@ -1333,4 +1333,20 @@ O plano de análise segue estrutura hierárquica para responder às questões de
 - Gerar hipóteses  
 - Oferecer contexto  
 
+#### 13. Avaliação de Validade (Ameaças e Mitigação)
 
+##### Ameaças à Validade
+
+| ID | Categoria | Descrição | Impacto | Mitigação |
+|----|-----------|-----------|---------|-----------|
+| **VCE-1** | Validade de Conclusão Estatística | Distribuições podem violar pressupostos de normalidade e homogeneidade necessários para testes paramétricos. | - p-valores incorretos<br>- Aumento de erros tipo I e II<br>- Intervalos de confiança imprecisos | - Testes de pressupostos (Shapiro-Wilk, Levene)<br>- Transformações (log, Box-Cox)<br>- Testes não paramétricos<br>- Bootstrap para ICs<br>- Reportar sensibilidade dos testes |
+| **VCE-2** | Validade de Conclusão Estatística | Variâncias diferentes entre modelos comprometem ANOVA. | - ANOVA inválida<br>- Comparações injustas<br>- Erros estatísticos | - Teste de Levene<br>- ANOVA de Welch<br>- Transformações<br>- Reportar variâncias e médias |
+| **VI-1** | Validade Interna | Variações temporais nas APIs durante 3 semanas. | - Efeito temporal confundido com efeito de modelo<br>- Diferenças irreproduzíveis | - Versionamento rigoroso<br>- Randomização temporal<br>- Monitoramento de changelogs<br>- ANOVA temporal<br>- Documentação de timestamps |
+| **VI-2** | Validade Interna | Fadiga e efeitos de ordem dos avaliadores. | - Viés para início/fim da lista<br>- Redução da confiabilidade<br>- Tendência temporal | - Randomização completa da ordem<br>- Pausas a cada 50 avaliações<br>- Limite 80/dia<br>- Análise de tendência nos scores<br>- Excluir avaliador anômalo |
+| **VI-3** | Validade Interna | Seleção não-aleatória de prompts. | - Resultados enviesados<br>- Baixa generalização<br>- Favorecimento indevido | - Revisão independente<br>- Diversificação de fontes<br>- Mistura PT/EN<br>- Teste piloto<br>- Sensibilidade por subconjuntos |
+| **VC-1** | Validade de Constructo | Métricas simplificadas não capturam “qualidade” completa. | - Sub-representação do constructo<br>- Modelos parecem melhores do que são | - Múltiplas métricas (triangulação)<br>- Avaliação humana<br>- Transparência sobre limites |
+| **VC-2** | Validade de Constructo | Reatividade: avaliadores sabem que estão sendo testados. | - Severidade artificial<br>- Julgamento não natural | - Instruções claras<br>- Ambiente relaxado<br>- Especialistas habituados |
+| **VC-3** | Validade de Constructo | Viés de confirmação nas análises. | - Interpretação enviesada<br>- Descarte de resultados contrários | - Hipóteses pré-especificadas<br>- Revisão crítica<br>- Análise cega |
+| **VE-1** | Validade Externa | Resultados são um “snapshot” temporal. | - Obsolescência rápida<br>- Versões futuras mudam desempenho | - Versionamento<br>- Discussão temporal<br>- Replicabilidade |
+| **VE-2** | Validade Externa | Apenas PT e EN avaliados. | - Não generaliza para outros idiomas | - Escopo linguístico explícito<br>- Estudos futuros multilíngues |
+| **VE-3** | Validade Externa | Apenas 3 avaliadores brasileiros. | - Viés cultural/profissional | - Avaliadores diversos<br>- Triangulação com métricas automáticas |
