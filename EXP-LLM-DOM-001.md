@@ -1350,3 +1350,1135 @@ O plano de análise segue estrutura hierárquica para responder às questões de
 | **VE-1** | Validade Externa | Resultados são um “snapshot” temporal. | - Obsolescência rápida<br>- Versões futuras mudam desempenho | - Versionamento<br>- Discussão temporal<br>- Replicabilidade |
 | **VE-2** | Validade Externa | Apenas PT e EN avaliados. | - Não generaliza para outros idiomas | - Escopo linguístico explícito<br>- Estudos futuros multilíngues |
 | **VE-3** | Validade Externa | Apenas 3 avaliadores brasileiros. | - Viés cultural/profissional | - Avaliadores diversos<br>- Triangulação com métricas automáticas |
+
+#### 14.2 Consentimento Informado
+
+##### Processo de Consentimento
+
+| Etapa | Descrição | Responsável | Prazo |
+|------|------------|--------------|--------|
+| **1. Convite inicial** | E-mail com visão geral do projeto | Pesquisador Principal | Semana -4 |
+| **2. Envio do TCLE** | Termo de Consentimento Livre e Esclarecido (PDF) | Pesquisador Principal | Semana -4 |
+| **3. Reunião de esclarecimento** | Videochamada para dúvidas (30 min) | Pesquisador Principal | Semana -3 |
+| **4. Assinatura digital** | Plataforma DocuSign ou similar | Avaliador | Até Semana -2 |
+| **5. Confirmação e registro** | Armazenamento seguro dos TCLEs | Pesquisador Principal | Semana -2 |
+
+
+##### Conteúdo do Termo de Consentimento Livre e Esclarecido (TCLE)
+
+**Seções obrigatórias:**
+
+| Seção | Conteúdo Resumido |
+|-------|---------------------|
+| **1. Título e pesquisador** | "Análise Comparativa de Desempenho entre Diferentes Modelos de LLMs" <br> Pesquisador: Matheus Vinicius (matheus.rodrigues.1462287@sga.pucminas.br) |
+| **2. Natureza da pesquisa** | Estudo científico sobre qualidade de modelos de inteligência artificial |
+| **3. Participação** | • Avaliar 400 respostas geradas por LLMs <br> • Tempo estimado: 12-15 horas ao longo de 2 semanas <br> • Local: remoto (plataforma web) |
+| **4. Riscos** | • Risco mínimo: fadiga cognitiva leve <br> • Mitigação: pausas obrigatórias, limite diário |
+| **5. Benefícios** | • Compensação financeira: R$ 500,00 <br> • Contribuição científica <br> • Experiência em avaliação de IA <br> • Acesso antecipado aos resultados |
+| **6. Confidencialidade** | • Identidade será pseudoanonimizada (Avaliador_A, B, C) <br> • Dados protegidos por senha <br> • Apenas pesquisador terá acesso aos nomes reais |
+| **7. Voluntariedade** | • Participação totalmente voluntária <br> • Direito de desistir a qualquer momento sem justificativa <br> • Sem penalização por desistência |
+| **8. Compensação** | • R$ 500,00 via PIX após conclusão <br> • Desistência após 50% concluído: compensação proporcional |
+| **9. Contatos** | • Pesquisador: [telefone] / [e-mail] <br> • Orientador: [nome] / [e-mail] <br> • Instituição: PUC Minas |
+| **10. Declarações** | • Li e compreendi todas as informações <br> • Tive oportunidade de fazer perguntas <br> • Concordo em participar voluntariamente |
+
+
+#### 14.3 Privacidade e Proteção de Dados
+
+##### Inventário de Dados Pessoais Coletados
+
+| Categoria | Dados Coletados | Finalidade | Base Legal (LGPD) |
+|-----------|------------------|-------------|---------------------|
+| Identificação | Nome completo, e-mail, telefone | Comunicação e pagamento | Consentimento (Art. 7º, I) |
+| Dados profissionais | Formação, experiência, área de atuação | Caracterização da amostra | Consentimento |
+| Dados financeiros | Chave PIX (CPF/e-mail/telefone) | Compensação financeira | Consentimento |
+| Dados de avaliação | Scores, comentários, timestamps | Coleta de resultados | Execução de pesquisa (Art. 7º, IV) |
+| Dados técnicos | IP, navegador, tempo de resposta | Auditoria técnica | Interesse legítimo (Art. 7º, IX) |
+
+**IMPORTANTE:** Nenhum dado sensível (Art. 5º, II da LGPD) será coletado.
+
+
+##### Classificação de Sensibilidade
+
+| Dado | Nível | Justificativa |
+|------|--------|----------------|
+| Nome, e-mail, telefone | MÉDIO | Identificação direta |
+| Chave PIX | MÉDIO | Dado financeiro básico |
+| Scores e comentários | BAIXO | Opiniões profissionais |
+| Formação/experiência | BAIXO | Dados profissionais públicos |
+
+
+##### 14.3.1 Pseudoanonimização
+
+| Fase | Estratégia | Implementação |
+|------|-------------|----------------|
+| Coleta | Identificadores separados de dados avaliativos | • Tabela avaliadores (ID, nome, e-mail, PIX) <br> • Tabela avaliacoes (ID_avaliador, scores) <br> • Relação 1:N com chave criptografada |
+| Análise | Uso apenas de códigos | Avaliador_A, Avaliador_B, Avaliador_C |
+| Publicação | Remoção total de identificadores | Apenas “3 avaliadores com 2+ anos experiência” |
+
+
+##### 14.3.2 Controles de Segurança Técnica
+
+| Controle | Descrição | Tecnologia |
+|----------|------------|---------------|
+| Criptografia em trânsito | HTTPS obrigatório (TLS 1.3) | Let's Encrypt + Nginx |
+| Criptografia em repouso | Dados sensíveis criptografados no BD | PostgreSQL + pgcrypto (AES-256) |
+| Autenticação | Login com senha forte + 2FA opcional | bcrypt + JWT |
+| Controle de acesso | RBAC | • Pesquisador: total <br> • Avaliador: apenas suas avaliações |
+| Auditoria | Log de todos os acessos | Tabela audit_log |
+| Backup | Backup diário criptografado | Armazenamento local + cloud |
+
+
+##### 14.3.3 Controles Organizacionais
+
+- Acesso restrito ao pesquisador principal  
+- Termo de confidencialidade assinado  
+- Minimização de dados  
+- Separação entre dados financeiros e avaliativos  
+
+
+##### Retenção e Descarte de Dados
+
+| Tipo de Dado | Retenção | Justificativa | Descarte |
+|--------------|-----------|----------------|-----------|
+| Identificáveis | 6 meses após conclusão | Comunicação pós-estudo e auditorias | Exclusão permanente |
+| Pseudoanonimizados | 10 anos | Reprodutibilidade científica | Arquivamento |
+| Dataset público | Indefinido | Compartilhamento científico | N/A |
+| TCLEs | 5 anos | Requisito legal | Destruição física/digital |
+
+
+##### Compartilhamento de Dados
+
+| Destinatário | Dados | Finalidade | Base Legal |
+|--------------|---------|-----------|--------------|
+| Comunidade científica | Dataset anonimizado | Reprodutibilidade | Consentimento |
+| Orientador | Dados pseudoanonimizados | Supervisão científica | Necessário |
+| PUC Minas | Relatórios agregados | Prestação de contas | Institucional |
+
+**Garantia:** Nenhum dado identificável será compartilhado publicamente.
+
+
+##### Direitos dos Titulares (LGPD, Art. 18)
+
+| Direito | Como Exercer |
+|---------|----------------|
+| Confirmação e acesso | Solicitação via e-mail |
+| Correção | Atualização na plataforma |
+| Anonimização/eliminação | Solicitação formal em 15 dias |
+| Portabilidade | Exportação CSV |
+| Revogação do consentimento | E-mail ao pesquisador |
+
+
+#### 14.4 Aprovações Necessárias
+
+##### Status de Aprovações
+
+| Órgão/Pessoa | Necessário? | Prazo | Observações |
+|--------------|-------------|--------|----------------|
+| Orientador | SIM | Semana -6 | Aprovação do plano |
+| Coordenação | SIM | Semana -5 | Autorização institucional |
+
+#### 15. Recursos, Infraestrutura e Orçamento
+
+##### 15.1 Recursos Humanos e Papéis
+
+##### Equipe do Experimento
+
+| Papel | Nome / Perfil | Dedicação | Responsabilidades Principais |
+|---|---:|---:|---|
+| **Pesquisador Principal (PI)** | Matheus Vinicius | 20h/semana (12 meses) | • Coordenação geral do experimento<br>• Desenvolvimento de instrumentos<br>• Coleta automatizada de dados<br>• Análise estatística<br>• Redação de relatórios<br>• Prestação de contas |
+| **Orientador Acadêmico** | [Nome do orientador] | 2h/semana (12 meses) | • Supervisão científica<br>• Revisão metodológica<br>• Aprovação de decisões críticas<br>• Orientação na análise<br>• Revisão de publicações |
+| **Avaliador Especialista A** | [A definir — Engenharia/Ciência da Computação] | 15h (2 semanas) | • Avaliação de 400 respostas<br>• Comentários qualitativos<br>• Participação em calibração<br>• Feedback sobre rubrica |
+| **Avaliador Especialista B** | [A definir — IA / Machine Learning] | 15h (2 semanas) | • Avaliação de 400 respostas<br>• Comentários qualitativos<br>• Participação em calibração<br>• Feedback sobre rubrica |
+| **Avaliador Especialista C** | [A definir — Análise de Dados / NLP] | 15h (2 semanas) | • Avaliação de 400 respostas<br>• Comentários qualitativos<br>• Participação em calibração<br>• Feedback sobre rubrica |
+| **Revisor Independente** | [A definir — Pesquisador sênior em IA] | 8h (pontual) | • Revisão do dataset de prompts<br>• Validação metodológica<br>• Identificação de vieses<br>• Parecer independente |
+| **Suporte Técnico** | [Opcional — Infraestrutura TI] | 4h (pontual) | • Configuração de servidor/GPU<br>• Troubleshooting de APIs<br>• Backup e segurança |
+
+
+##### Matriz RACI (Responsabilidade)
+
+| Atividade | PI | Orientador | Avaliadores | Revisor | Suporte TI |
+|---|---:|---:|---:|---:|---:|
+| Desenho experimental | R | A | I | C | I |
+| Criação de prompts | R | C | I | A | I |
+| Desenvolvimento de scripts | R | I | I | I | C |
+| Configuração de infraestrutura | R | I | I | I | C |
+| Execução automatizada | R | I | I | I | C |
+| Treinamento de avaliadores | R | C | A | I | I |
+| Avaliação humana | I | I | R | I | I |
+| Análise estatística | R | A | I | C | I |
+| Redação de relatório | R | A | I | I | I |
+| Publicação de resultados | R | A | I | I | I |
+
+**Legenda:** R = Responsável (executa) • A = Aprovador (decide) • C = Consultado (opina) • I = Informado (recebe comunicação)
+
+
+##### Critérios de Seleção dos Avaliadores
+
+| Critério | Peso | Método de Avaliação |
+|---|---:|---|
+| Formação acadêmica | 25% | Graduação em área técnica (obrigatório); Pós-graduação (desejável) |
+| Experiência profissional | 30% | ≥ 2 anos em software/IA/dados |
+| Familiaridade com LLMs | 20% | Questionário sobre uso prévio de GPT/Claude/Gemini |
+| Disponibilidade | 15% | Compromisso com 15h em 2 semanas |
+| Diversidade de perfil | 10% | Balanceamento entre: código, análise, criatividade |
+
+
+#### 15.2 Infraestrutura Técnica Necessária
+
+##### Ambientes Computacionais
+
+| Ambiente | Especificação | Finalidade | Provedor |
+|---|---|---|---|
+| Servidor de execução | CPU: 8 cores • RAM: 16 GB • Disco: 500 GB SSD • SO: Ubuntu 22.04 LTS | Execução de scripts Python, armazenamento de BD | AWS EC2 t3.xlarge / Google Cloud VM | 
+| Banco de dados | PostgreSQL 15.x • 50 GB | Armazenamento de prompts, respostas, avaliações, logs | Mesmo servidor ou RDS | 
+| Plataforma de avaliação | Servidor web: Node.js 18.x • Nginx • SSL/TLS | Interface para avaliadores | Mesmo servidor ou Heroku |
+
+
+##### Ferramentas e Software
+
+| Categoria | Ferramenta | Versão | Licença | Custo |
+|---|---|---:|---:|---:|
+| Linguagens | Python | 3.11+ | Open source | Gratuito |
+| IDEs | VS Code | Última | MIT | Gratuito |
+| Controle de versão | Git / GitHub | 2.x / conta | GPL / plano gratuito | Gratuito |
+| Banco de dados | PostgreSQL | 15.x | PostgreSQL License | Gratuito |
+| Conteinerização | Docker | 24.x | Apache 2.0 | Gratuito |
+| APIs de LLMs | OpenAI SDK | 1.x | MIT | Gratuito (SDK)* |
+|  | Anthropic SDK | 0.x | MIT | Gratuito (SDK)* |
+|  | Google GenAI SDK | Última | Apache 2.0 | Gratuito (SDK)* |
+| Visualização | matplotlib / seaborn | — | MIT / BSD | Gratuito |
+| Comunicação | Slack / Teams | N/A | Plano gratuito | Gratuito |
+
+> \*O limite sendo ultrapassado haveria necessidade de pagamento para utilização a API. **Custo estimado listado na seção 15.4**.
+
+
+##### Repositórios e Armazenamento
+
+| Recurso | Plataforma | Capacidade | Finalidade | Acesso |
+|---|---|---:|---|---|
+| Repositório de código | GitHub (privado) | Ilimitado | Scripts, notebooks, documentação | Pesquisador + orientador |
+| Armazenamento de dados | Google Drive institucional | 1 TB | Backups, TCLEs, resultados brutos | Pesquisador (criptografado) |
+| Documentação | GitHub Wiki | Ilimitado | Protocolos, instruções, FAQ | Equipe do experimento |
+
+
+#### 15.3 Materiais e Insumos
+
+##### Materiais Digitais
+
+| Item | Quantidade | Formato | Responsável |
+|---|---:|---|---|
+| Dataset de prompts | 250 | JSON / CSV | Pesquisador + Revisor |
+| Gabaritos de respostas | ~100 | JSON |  Pesquisador |
+| Rubrica de avaliação | 1 | PDF + JSON | Pesquisador + Orientador |
+| Termo de Consentimento (TCLE) | 1 template | PDF editável | Pesquisador |
+| Guia do Avaliador | 1 | PDF (≈10 páginas) | Pesquisador |
+| Templates de relatórios | 3 | LaTeX / Markdown | Pesquisador |
+
+
+##### Formulários e Checklists
+
+- Checklist de prontidão técnica: Google Sheets
+- Formulário de recrutamento: Google Forms
+- Formulário de feedback pós-avaliação: Google Forms
+- Checklist de análise estatística: Markdown
+- Template de log de execução: CSV automático
+
+#### 15.4 Orçamento e Custos Estimados
+
+##### Resumo Executivo
+
+| Categoria | Custo Estimado (USD) | Custo Estimado (BRL) | % do Total |
+|---|---:|---:|---:|
+| APIs de LLMs | US$ 500 | R$ 2.500 | 45% |
+| Compensação de avaliadores | US$ 300 | R$ 1.500 | 27% |
+| Infraestrutura (cloud) | US$ 100 | R$ 500 | 9% |
+| Licenças e ferramentas | US$ 20 | R$ 100 | 2% |
+| Recursos humanos (horas do PI)* | US$ 800 | R$ 4.000 | 14% |
+| Contingência (10%) | US$ 60 | R$ 300 | 5% |
+| **TOTAL** | **US$ 1.120** | **R$ 5.600** | **100%** |
+
+> \*Custo do PI é estimado para fins de planejamento, mas **não será desembolsado** (bolsa ou trabalho acadêmico).
+
+
+##### 15.4.1 Custos de APIs de LLMs (resumo)
+
+- Cálculo por modelo considerando prompts/repetições e tokens médios.
+- Preço de referência: dezembro/2024 (sujeito a variação).  
+- Margem de segurança aplicada (×2) para reexecuções e prompts maiores.  
+- **SUBTOTAL APIs:** ~US$ 500
+
+
+##### 15.4.2 Compensação de Avaliadores
+
+| Item | Quantidade | Valor Unitário | Total (BRL) | Total (USD aprox.) |
+|---|---:|---:|---:|---:|
+| Avaliador A | 15 horas | R$ 33/h | R$ 500 | ~US$ 100 |
+| Avaliador B | 15 horas | R$ 33/h | R$ 500 | ~US$ 100 |
+| Avaliador C | 15 horas | R$ 33/h | R$ 500 | ~US$ 100 |
+| **SUBTOTAL** | — | — | **R$ 1.500** | **~US$ 300** |
+
+> Justificativa: taxa horária compatível com mercado brasileiro (R$ 30–50/h).
+
+
+##### 15.4.3 Infraestrutura Cloud (detalhe)
+
+| Recurso | Especificação | Duração | Custo/mês | Total |
+|---|---|---:|---:|---:|
+| Servidor EC2 / GCP | t3.xlarge (8 vCPU, 16 GB RAM) | 2 meses | US$ 120/mês | US$ 80 (uso parcial) |
+| Armazenamento (S3 / GCS) | 100 GB | 2 meses | US$ 2.30/mês | US$ 5 |
+| Transferência de dados | ~50 GB | — | US$ 5/GB | US$ 10 |
+| DocuSign | Plano mensal | 1 mês | US$ 10 | US$ 10 |
+| **SUBTOTAL** | — | — | — | **~US$ 105** |
+
+**Alternativa econômica:** usar free tiers / créditos estudantis ou servidor local (reduzir para ~US$ 20).
+
+##### 15.4.4 Licenças e Ferramentas
+
+- Majoritariamente open-source (Python, R, PostgreSQL, Docker).  
+- **SUBTOTAL licenças:** ~US$ 0
+
+##### 15.4.5 Recursos Humanos (Estimativa Teórica — não desembolsado)
+
+| Papel | Horas | Taxa Estimada | Total (BRL) |
+|---|---:|---:|---:|
+| Pesquisador Principal | 240h | R$ 50/h | R$ 12.000 |
+| Orientador Acadêmico | 24h | R$ 150/h | R$ 3.600 |
+| Revisor Independente | 8h | R$ 100/h | R$ 800 |
+| Suporte Técnico | 4h | R$ 80/h | R$ 320 |
+| **SUBTOTAL** |  |  | **R$ 16.720 ( US 3344)** |
+
+> Observação: custos estimados para valoração do esforço; normalmente não desembolsados em trabalho acadêmico.
+
+##### Orçamento Consolidado (Apenas Custos Diretos)
+
+| Item | Valor (USD) | Valor (BRL) |
+|---|---:|---:|
+| APIs de LLMs | $500 | R$ 2.500 |
+| Compensação de avaliadores | $300 | R$ 1.500 |
+| Infraestrutura cloud | $100 | R$ 500 |
+| Licenças (DocuSign) | $10 | R$ 50 |
+| **SUBTOTAL** | **$910** | **R$ 4.550** |
+| Contingência (10%) | $91 | R$ 455 |
+| **TOTAL GERAL** | **~$1.000** | **~R$ 5.000** |
+
+##### Fonte de Financiamento
+
+| Fonte | Valor Aprovado |
+|---|---:|
+| Bolsa de pesquisa institucional | R$ 3.000 |
+| Verba do orientador | R$ 1.000 |
+| Recursos próprios | R$ 1.000 |
+| **TOTAL** | R$ 5.000 |
+
+
+##### Plano de Contingência Orçamentária
+
+| Cenário | Impacto | Medida de Mitigação |
+|---|---|---|
+| Orçamento excede em 20% | Custo total → R$ 6.000 | Reduzir prompts de 250 para 200 (-20% custo APIs) |
+| APIs mais caras que o previsto | +50% no custo de APIs | Priorizar modelos mais baratos (Gemini, LLaMA) |
+| Infraestrutura cloud cara | +100% no custo cloud | Migrar para servidor local ou free tiers |
+| Financiamento não aprovado | Falta de R$ 3.000 | Buscar fomento alternativo, reduzir escopo ou postergar experimento |
+
+#### 16. Cronograma, Marcos e Riscos Operacionais
+
+##### 16.1 Macrocronograma (até o início da execução)
+
+##### **Visão Geral: 12 Meses**
+
+| Fase | Duração | Período | Marco Principal |
+|------|---------|---------|-----------------|
+| FASE 0: Preparação | 10 semanas | Mês 1–3 | ✅ Aprovação do plano + Infraestrutura pronta |
+| FASE 1: Coleta Automatizada | 3 semanas | Mês 3–4 | ✅ 3.000 execuções concluídas |
+| FASE 2: Avaliação Humana | 3 semanas | Mês 4–5 | ✅ 1.200 avaliações concluídas |
+| FASE 3: Análise de Dados | 8 semanas | Mês 5–7 | ✅ Relatório técnico finalizado |
+| FASE 4: Documentação e Publicação | 12 semanas | Mês 7–10 | ✅ Artigo submetido + Dataset público |
+| Buffer | 8 semanas | Mês 10–12 | Margem para imprevistos |
+
+
+##### **Cronograma Detalhado — FASE 0: Preparação**
+
+| Semana | Atividade Principal | Entregas | Responsável | Dependências |
+|--------|----------------------|----------|--------------|--------------|
+| S1–S2 | Finalização do plano experimental | • Versão 1.0 • Submissão ao orientador | PI | — |
+| S2–S3 | Revisão e aprovação acadêmica | • Parecer • Versão 1.1 | Orientador, PI | S1–S2 |
+| S3 | Submissão para aprovações institucionais | • Protocolo coordenação • Solicitação DPO • Orçamento | PI | S2–S3 |
+| S4 | Desenvolvimento do dataset de prompts | • 400 prompts • Classificação inicial | PI | — |
+| S4–S5 | Revisão independente do dataset | • Dataset validado (250 prompts) • Gabaritos | Revisor, PI | S4 |
+| S5–S6 | Desenvolvimento dos scripts | • Execuções • APIs integradas • Testes | PI | S3 |
+| S6 | Configuração de infraestrutura | • Servidor • BD • APIs | PI, TI | S3 |
+| S7 | Plataforma de avaliação | • Interface web • BD integrado | PI | S6 |
+| S7–S8 | Materiais de suporte | • Guia • Rubrica • TCLE • Templates | PI, Orientador | — |
+| S8 | Recrutamento | • 3 avaliadores • TCLEs assinados | PI | S7–S8 |
+| S9 | Treinamento | • Calibração • 50 pilotos • Kappa ≥0.60 | PI | S8 |
+| S9–S10 | Piloto completo | • 120 execuções teste • Ajustes finais | PI | S6, S7, S9 |
+| S10 | Go/No-Go | • Checklist • Aprovação final | PI, Orientador | Todas |
+
+##### **Marcos Críticos (Milestones)**
+
+| Marco | Data-Alvo | Critério | Impacto se Não Cumprido |
+|-------|-----------|----------|---------------------------|
+| M1 | Semana 3 | Plano aprovado | BLOQUEANTE |
+| M2 | Semana 4 | Orçamento confirmado | BLOQUEANTE |
+| M3 | Semana 5 | Dataset validado | CRÍTICO |
+| M4 | Semana 6 | Infraestrutura operacional | BLOQUEANTE |
+| M5 | Semana 7 | Plataforma pronta | CRÍTICO |
+| M6 | Semana 9 | Avaliadores treinados | CRÍTICO |
+| M7 | Semana 10 | Piloto OK (≥95%) | CRÍTICO |
+| M8 | Semana 10 | Go/No-Go aprovado | BLOQUEANTE |
+
+
+##### 16.2 Dependências entre Atividades
+
+##### **Diagrama Simplificado**<br>
+
+![Diagrama Dependencia de atividades](https://github.com/MatVini0601/EXP-LLM-DOM-001/blob/main/images/dependenciaAtividades.png)
+
+#### 16.3 Riscos Operacionais e Plano de Contingência
+
+##### **Riscos de Cronograma**
+
+| ID | Risco | Prob. | Impacto | Gatilho | Contingência | Responsável |
+|-----|--------|--------|----------|----------|---------------|--------------|
+| R-C1 | Atraso aprovação | Média | Alto | Semana 4 | Escalar / reduzir escopo | PI |
+| R-C2 | Falta de avaliadores | Média | Alto | < 3 candidatos | Ampliar divulgação / +20% | PI |
+| R-C3 | Falha piloto | Baixa | Muito Alto | Sucesso <90% | Debug / reduzir escopo | PI, TI |
+| R-C4 | APIs instáveis | Média | Médio | >10% falhas | Retry / mais dias | PI |
+| R-C5 | Avaliador desiste | Baixa | Alto | Aviso | Reserva / redistribuir | PI |
+| R-C6 | Infraestrutura cai | Média | Médio | >4h off | Backup / suporte | PI, TI |
+| R-C7 | Análise estatística difícil | Baixa | Médio | Pressupostos violados | Estatístico / alternativas | PI |
+
+
+##### **Riscos de Recursos**
+
+| ID | Risco | Prob. | Impacto | Gatilho | Contingência |
+|-----|--------|--------|----------|----------|--------------|
+| R-R1 | Orçamento insuficiente | Média | Alto | >120% custo | Reduzir prompts / menos modelos |
+| R-R2 | Indisponibilidade PI | Baixa | Muito Alto | Doença | Pausar / orientador assume |
+| R-R3 | Perda de API | Baixa | Alto | ToS muda | Migrar / LLaMA local |
+| R-R4 | Servidor indisponível | Média | Médio | Hardware falha | Migrar / laptop |
+| R-R5 | Perda de dados | Muito baixa | Catastrófico | Falha BD | Restaurar backup |
+
+
+##### **Riscos de Qualidade**
+
+| ID | Risco | Prob. | Impacto | Gatilho | Contingência |
+|-----|--------|--------|----------|----------|--------------|
+| R-Q1 | Baixa concordância | Média | Alto | Kappa <0.40 | Recalibrar / substituir |
+| R-Q2 | Dataset enviesado | Baixa | Alto | Viés detectado | Revisão / substituição |
+| R-Q3 | Modelos atualizam | Média | Médio | Atualização anunciada | Coleta rápida / documentar |
+| R-Q4 | Métricas fracas | Baixa | Alto | Piloto sem correlação | Complementar métricas |
+
+#### 17. Governança do Experimento
+
+##### 17.1 Papéis e Responsabilidades Formais
+
+##### Matriz Detalhada de Responsabilidades (RACI + V)
+
+| Atividade / Decisão | PI | Orientador | Avaliadores | Revisor | Suporte TI | Coord. Curso |
+|---------------------|----|-----------| ------------|---------|-----------|--------------|
+| **Planejamento** | | | | | | |
+| Elaborar plano experimental | **R** | **A** | I | C | I | I |
+| Aprovar escopo e metodologia | C | **A** | I | C | I | I |
+| Definir orçamento | **R** | **A** | I | I | I | **A** |
+| Aprovar dataset de prompts | C | C | I | **A** | I | I |
+| **Preparação** | | | | | | |
+| Desenvolver scripts/instrumentos | **R** | I | I | C | C | I |
+| Configurar infraestrutura | **R** | I | I | I | **A** | I |
+| Recrutar avaliadores | **R** | C | - | I | I | I |
+| Treinar avaliadores | **R** | C | **A** | I | I | I |
+| Aprovar início da operação (Go) | R | **A** | I | I | I | I |
+| **Execução** | | | | | | |
+| Executar coleta automatizada | **R** | I | I | I | C | I |
+| Realizar avaliações humanas | I | I | **R** | I | I | I |
+| Monitorar progresso | **R** | I | I | I | C | I |
+| Resolver problemas técnicos | **R** | C | I | I | **A** | I |
+| Decidir mudanças no protocolo | C | **A** | I | C | I | I |
+| **Análise e Publicação** | | | | | | |
+| Executar análises estatísticas | **R** | **A** | I | C | I | I |
+| Interpretar resultados | **R** | **A** | I | C | I | I |
+| Redigir relatório/artigo | **R** | **A** | I | I | I | I |
+| Aprovar publicação | C | **A** | I | I | I | I |
+| Disponibilizar dataset público | **R** | **A** | I | I | I | I |
+
+**Legenda Estendida:**
+- **R (Responsible):** Executa a atividade
+- **A (Accountable):** Aprova e é responsável final
+- **C (Consulted):** Deve ser consultado (opinião técnica)
+- **I (Informed):** Deve ser informado do resultado
+- **V (Verifies):** Verifica qualidade/conformidade
+
+##### Descrição Detalhada de Papéis
+
+##### Tabela de Papéis, Autoridades e Responsabilidades
+
+| Papel | Autoridade | Responsabilidades | Limites / Observações |
+|-------|------------|-------------------|------------------------|
+| **Pesquisador Principal (PI)** | - Coordenar todas as atividades operacionais<br>- Tomar decisões técnicas do dia a dia<br>- Alocar recursos dentro do orçamento<br>- Propor mudanças no plano (com aprovação) | - Executar 90% das atividades<br>- Garantir conformidade com protocolo<br>- Comunicar status semanalmente<br>- Documentar decisões e desvios<br>- Garantir qualidade dos dados<br>- Prestar contas financeiras | **Limites:**<br>- Não pode alterar escopo<br>- Não pode gastar >110% do orçamento<br>- Pode ajustar cronograma (±3 dias)<br>- Pode decidir detalhes técnicos |
+| **Orientador Acadêmico** | - Aprovar/rejeitar plano experimental<br>- Aprovar mudanças no protocolo<br>- Aprovar início e fim de fases<br>- Aprovar publicações | - Garantir rigor científico<br>- Orientar interpretação de resultados<br>- Revisar documentos<br>- Supervisão metodológica<br>- Mediar conflitos | **Interação mínima:** 1 reunião/semana (1h) |
+| **Avaliadores Especialistas** | - Atribuir scores dentro da rubrica<br>- Sugerir melhorias na rubrica | - Avaliar 400 respostas cada<br>- Seguir rubrica rigorosamente<br>- Justificar scores discrepantes<br>- Manter confidencialidade<br>- Reportar problemas imediatamente | **Limites:**<br>- Não podem alterar rubrica<br>- Não podem compartilhar dados<br>- Podem pausar e retornar |
+| **Revisor Independente** | - Vetar prompts com viés<br>- Solicitar ajustes no dataset | - Revisar dataset criticamente<br>- Identificar vieses<br>- Validar balanceamento<br>- Fornecer parecer escrito | **Independência:**<br>Não pode ter conflito de interesse |
+
+
+
+#### 17.2 Ritos de Acompanhamento Pré-Execução
+
+##### Reuniões Regulares
+
+| Reunião | Frequência | Duração | Participantes | Pauta Típica | Artefato Gerado |
+|---------|-----------|---------|---------------|--------------|-----------------|
+| **Status Semanal** | Toda segunda-feira, 14h | 60 min | PI + Orientador | • Progresso vs. cronograma<br>• Problemas encontrados<br>• Decisões necessárias<br>• Próximas atividades | Ata de reunião (template) |
+| **Revisão de Marco** | Ao atingir cada milestone | 90 min | PI + Orientador (+ Revisor se aplicável) | • Validação do marco<br>• Análise de entregas<br>• Go/No-Go para próxima fase<br>• Ajustes no plano | • Checklist de marco<br>• Decisão formal Go/No-Go |
+| **Calibração de Avaliadores** | 1× antes do piloto<br>1× depois do piloto | 120 min | PI + 3 Avaliadores + Orientador | • Explicação da rubrica<br>• Prática com exemplos<br>• Discussão de discordâncias<br>• Ajuste de interpretações | • Kappa preliminar<br>• Rubrica ajustada |
+| **Comitê de Crise** (se necessário) | Ad-hoc | 60 min | PI + Orientador + Suporte TI | • Problema crítico identificado<br>• Análise de impacto<br>• Decisão de contingência | Plano de ação emergencial |
+
+##### Checkpoints Formais (Go/No-Go)
+
+| Checkpoint | Quando | Critérios de Aprovação | Participantes | Consequência de "No-Go" |
+|-----------|--------|------------------------|---------------|-------------------------|
+| **CP1: Plano Aprovado** | Semana 3 | • Parecer positivo do orientador<br>• Metodologia sólida<br>• Orçamento viável | PI, Orientador, Coordenação | Revisar e resubmeter |
+| **CP2: Dataset Validado** | Semana 5 | • Revisor aprova qualidade<br>• 250 prompts balanceados<br>• Gabaritos criados | PI, Revisor, Orientador | Ajustar prompts (prazo +1 semana) |
+| **CP3: Infraestrutura Pronta** | Semana 6 | • Servidor operacional<br>• APIs conectadas<br>• BD configurado<br>• Testes passam | PI, Suporte TI | Corrigir problemas (prazo +3 dias) |
+| **CP4: Piloto Bem-Sucedido** | Semana 10 | • ≥95% execuções sem erro<br>• Métricas calculáveis<br>• Kappa ≥0.60 | PI, Orientador, Avaliadores | Refazer piloto ou ajustar instrumentos |
+| **CP5: GO FINAL para Operação** | Semana 10 (fim) | **Todos os critérios da Seção 20 atendidos** | PI, Orientador | Adiar início até resolver |
+
+### Rituais de Documentação
+
+| Ritual | Frequência | Responsável | Formato |
+|--------|-----------|-------------|---------|
+| **Log de Progresso** | Diário | PI | Planilha Google Sheets (5 min/dia) |
+| **Relatório Semanal** | Segunda-feira | PI | E-mail estruturado (template) |
+| **Atualização do Kanban** | Diário | PI | GitHub Projects ou Trello |
+| **Registro de Decisões** | Quando decisão importante | PI | Documento "ADR" (Architecture Decision Records) |
+| **Registro de Riscos** | Semanal | PI | Planilha de riscos atualizada |
+
+#### Template de Ata de Reunião Semanal
+```markdown
+Ata de Reunião - [Data]
+
+Participantes: [Lista]
+Duração: [HH:MM]
+
+1. Progresso da Semana
+- [ ] Atividades concluídas
+- [ ] Atividades em andamento
+- [ ] Atividades bloqueadas
+
+2. Indicadores
+| Métrica | Meta | Realizado | Status |
+|---------|------|-----------|--------|
+| Aderência ao cronograma | 100% | X% | 🟢/🟡/🔴 |
+| Consumo orçamentário | Y% (esperado) | Z% | 🟢/🟡/🔴 |
+
+3. Problemas e Riscos
+- [Problema 1]: [Descrição] → [Ação]
+- [Risco 1]: [Descrição] → [Mitigação]
+
+4. Decisões Tomadas
+- [Decisão 1]: [Descrição]-> [Responsável]-> [Prazo]
+
+5. Próximos Passos
+- [ ] [Atividade 1] - [Responsável] - [Prazo]
+- [ ] [Atividade 2] - [Responsável] - [Prazo]
+
+6. Ação Requerida do Orientador
+- [Se aplicável]
+```
+
+#### 17.3 Processo de Controle de Mudanças no Plano
+
+##### Tipos de Mudanças
+
+| Tipo | Exemplos | Nível de Aprovação |
+|------|----------|-------------------|
+| **Trivial** | • Ajuste de < 3 dias no cronograma<br>• Correção de typos<br>• Pequenos ajustes em scripts | PI (autonomia) |
+| **Menor** | • Ajuste de 3-7 dias<br>• Substituição de 1 avaliador<br>• Mudança em métrica secundária | PI + Orientador (e-mail) |
+| **Maior** | • Mudança de escopo (±20 prompts)<br>• Alteração metodológica significativa<br>• Ajuste orçamentário >10% | PI + Orientador (reunião formal) |
+| **Crítica** | • Mudança de objetivos<br>• Remoção de modelo<br>• Cancelamento de fase | PI + Orientador + Coordenação |
+
+##### Fluxo de Controle de Mudanças
+
+##### Etapa 1: Identificação e Proposta
+**Responsável:** PI (ou qualquer stakeholder)  
+**Ação:** Preencher "Change Request Form" (CRF)
+
+**Conteúdo do CRF:**
+- ID da mudança: CRF-YYYYMMDD-NN
+- Solicitante
+- Data
+- Tipo de mudança (Trivial/Menor/Maior/Crítica)
+- Descrição detalhada do problema
+- Mudança proposta
+- Justificativa
+- Impacto no cronograma
+- Impacto no orçamento
+- Impacto na qualidade
+- Alternativas consideradas
+
+#### Etapa 2: Análise de Impacto
+**Responsável:** PI  
+**Prazo:** 24-48h  
+**Ação:** Avaliar consequências em todas as dimensões
+
+#### Etapa 3: Aprovação
+**Responsável:** Conforme nível (ver tabela acima)  
+**Prazo:**
+- Trivial: Imediato
+- Menor: 2 dias úteis
+- Maior: 5 dias úteis
+- Crítica: 1 semana
+
+**Critérios de aprovação:**
+- Impacto justifica a mudança?
+- Recursos disponíveis para implementar?
+- Não compromete objetivos principais?
+- Não viola restrições éticas?
+
+#### Etapa 4: Implementação
+**Responsável:** PI  
+**Ação:**
+- Atualizar plano experimental (controle de versão)
+- Comunicar mudança a todos afetados
+- Atualizar cronograma e orçamento
+- Registrar em log de mudanças
+
+#### Etapa 5: Verificação
+**Responsável:** Orientador  
+**Ação:** Confirmar que mudança foi implementada conforme aprovado
+
+##### Registro de Mudanças (Change Log)
+
+**Local:** `/projeto/documentacao/change_log.md`
+
+**Formato:**
+| ID | Data | Tipo | Descrição | Impacto | Aprovador | Status |
+|----|------|------|-----------|---------|-----------|--------|
+| CRF-20250215-01 | 15/02/2025 | Menor | Substituição Avaliador B | +3 dias | Orientador | Implementado |
+| CRF-20250301-02 | 01/03/2025 | Maior | Redução de 250→200 prompts | -2 semanas, -20% custo | Orientador | Aprovado |
+
+### Mudanças Proibidas Após "Go Final"
+
+Após aprovação do CP5 (Go Final), as seguintes mudanças **NÃO são permitidas** sem reiniciar todo o processo:
+- Alteração de objetivos ou hipóteses
+- Mudança de modelos avaliados
+- Alteração significativa na rubrica de avaliação
+- Substituição de >1 avaliador
+- Mudança de métricas principais
+
+
+#### 18. Plano de Documentação e Reprodutibilidade
+
+##### 18.1 Repositórios e Convenções de Nomeação
+
+##### Estrutura de Repositórios
+
+| Repositório | Plataforma | Visibilidade | Conteúdo | URL (exemplo) |
+|-------------|-----------|--------------|----------|---------------|
+| **Repositório Principal** | GitHub | Privado (durante) / Público (após) | Código, scripts, notebooks, docs | `github.com/MatVini0601/EXP-LLM-DOM-001` |
+| **Dataset e Resultados** | GitHub | Público (após publicação) | Dados brutos, processados, resultados | `github.com/MatVini0601/EXP-LLM-DOM-001` |
+| **Documentos Institucionais** | Google Drive (PUC Minas) | Restrito | Aprovações, TCLEs, atas | Drive institucional |
+| **Backup Seguro** | Google Drive pessoal criptografado | Privado | Cópia de segurança completa | Drive pessoal |
+
+##### Estrutura de Pastas do Repositório Principal
+```markdown
+EXP-LLM-DOM-001/
+├── README.md                    # Visão geral do projeto
+├── LICENSE                      # Licença (MIT ou CC-BY)
+├── CITATION.cff                 # Metadados de citação
+├── requirements.txt             # Dependências Python
+├── environment.yml              # Ambiente Conda
+│
+├── docs/                        # Documentação
+│   ├── plano_experimental.md    # Este documento
+│   ├── protocolo_execucao.md    # Protocolo operacional
+│   ├── guia_avaliador.pdf       # Guia do avaliador
+│   ├── rubrica.pdf              # Rubrica de avaliação
+│   ├── change_log.md            # Registro de mudanças
+│   └── architecture_decisions/  # ADRs (Architecture Decision Records)
+│
+├── data/                        # Dados (gitignored, apenas estrutura)
+│   ├── raw/                     # Dados brutos (não versionados)
+│   │   ├── prompts/             # Prompts originais
+│   │   ├── responses/           # Respostas dos modelos
+│   │   └── evaluations/         # Avaliações humanas
+│   ├── processed/               # Dados processados
+│   └── final/                   # Dataset público final
+│
+├── src/                         # Código fonte
+│   ├── data_collection/         # Scripts de coleta
+│   │   ├── execute_models.py    # Execução dos modelos
+│   │   ├── api_clients.py       # Wrappers para APIs
+│   │   └── config.yaml          # Configurações
+│   ├── evaluation/              # Ferramentas de avaliação
+│   │   ├── compile_code.py      # Teste de código
+│   │   ├── check_facts.py       # Verificação factual
+│   │   └── compute_similarity.py# Similaridade semântica
+│   ├── analysis/                # Análise estatística
+│   │   ├── descriptive_stats.R  # Estatísticas descritivas
+│   │   ├── inferential_tests.R  # Testes de hipóteses
+│   │   └── visualizations.R     # Gráficos
+│   └── utils/                   # Funções auxiliares
+│       ├── database.py          # Conexão com BD
+│       └── logger.py            # Sistema de logs
+│
+├── notebooks/                   # Jupyter/R Markdown Notebooks
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_descriptive_analysis.Rmd
+│   ├── 03_inferential_tests.Rmd
+│   └── 04_final_report.Rmd
+│
+├── web_platform/                # Plataforma de avaliação
+│   ├── frontend/                # React app
+│   ├── backend/                 # Node.js API
+│   └── database/                # Scripts SQL
+│
+├── results/                     # Resultados (gitignored)
+│   ├── figures/                 # Gráficos finais
+│   ├── tables/                  # Tabelas formatadas
+│   └── reports/                 # Relatórios gerados
+│
+└── tests/                       # Testes automatizados
+├── test_api_clients.py
+├── test_metrics.py
+└── test_database.py
+```
+
+##### Convenções de Nomeação de Arquivos
+
+##### Arquivos de Dados
+
+| Tipo | Padrão | Exemplo |
+|------|--------|---------|
+| **Prompts** | `prompts_cat-[CATEGORIA]_[DATA].json` | `prompts_cat-codigo_20250215.json` |
+| **Respostas** | `responses_[MODELO]_[PROMPT_ID]_exec[N]_[TIMESTAMP].json` | `responses_gpt4_p042_exec1_20250301T143022.json` |
+| **Avaliações** | `evaluations_avaliador[X]_[DATA].csv` | `evaluations_avaliadorA_20250315.csv` |
+| **Logs** | `log_[COMPONENTE]_[DATA].log` | `log_api-execution_20250301.log` |
+
+##### Scripts e Notebooks
+
+| Tipo | Padrão | Exemplo |
+|------|--------|---------|
+| **Scripts Python** | `[verbo]_[objeto].py` | `execute_models.py`, `compute_similarity.py` |
+| **Notebooks** | `[NN]_[descricao-breve].[ext]` | `01_data_exploration.ipynb` |
+| **Scripts R** | `[NN]_[descricao].R` | `03_inferential_tests.R` |
+
+##### Arquivos de Documentação
+
+| Tipo | Padrão |
+|------|--------|
+| **Markdown** | `snake_case.md` |
+| **PDFs** | `TitleCase_v[N.N].pdf` |
+| **LaTeX** | `document_name.tex` |
+
+##### Controle de Versão
+
+| Elemento | Sistema | Estratégia |
+|----------|---------|------------|
+| **Código e scripts** | Git (GitHub) | • Commits atômicos<br>• Mensagens descritivas<br>• Branch `main` protegida<br>• PRs para mudanças significativas |
+| **Dados brutos** | Backup manual | • Versionamento por data<br>• Imutável após coleta |
+| **Documentos** | Git + Google Docs (rascunhos) | • Versão final em Git<br>• Histórico de revisões |
+| **Plano experimental** | Git | • Tags para versões principais<br>• `v1.0`, `v1.1`, `v2.0` |
+
+**Commits semânticos:**
+- feat: adiciona função de cálculo de similaridade
+- fix: corrige bug na conexão com API do Claude
+- docs: atualiza README com instruções de instalação
+- refactor: reorganiza estrutura de pastas
+- test: adiciona testes para métricas de qualidade
+
+
+#### 18.2 Templates e Artefatos Padrão
+
+##### Templates de Documentos
+
+| Template | Formato | Localização | Uso |
+|----------|---------|-------------|-----|
+| **Ata de Reunião** | Markdown | `/docs/templates/ata_reuniao.md` | Toda reunião semanal |
+| **Change Request Form** | Markdown | `/docs/templates/change_request.md` | Proposta de mudanças |
+| **Relatório Semanal** | Markdown | `/docs/templates/relatorio_semanal.md` | Status para orientador |
+| **Checklist de Marco** | Markdown | `/docs/templates/checklist_marco.md` | Validação de milestones |
+| **TCLE** | PDF editável | `/docs/templates/TCLE_template.pdf` | Consentimento de avaliadores |
+
+##### Templates de Código
+
+| Template | Linguagem | Localização | Uso |
+|----------|-----------|-------------|-----|
+| **API Client** | Python | `/src/templates/api_client_template.py` | Integração com novas APIs |
+| **Teste Unitário** | Python | `/tests/templates/test_template.py` | Testes automatizados |
+| **Notebook de Análise** | R Markdown | `/notebooks/templates/analysis_template.Rmd` | Análises estatísticas |
+| **Script de Visualização** | R/Python | `/src/templates/viz_template.R` | Geração de gráficos |
+
+
+##### Checklists Padrão
+
+##### Checklist de Início de Semana (Segunda-feira)
+```markdown
+Checklist - Início de Semana [DATA]
+
+Preparação
+- [ ] Revisar cronograma da semana
+- [ ] Verificar status de APIs (uptime)
+- [ ] Checar saldo orçamentário
+- [ ] Revisar registro de riscos
+
+Comunicação
+- [ ] Enviar relatório semanal ao orientador
+- [ ] Agendar reunião semanal
+- [ ] Responder e-mails pendentes
+
+Técnico
+- [ ] Executar backup semanal
+- [ ] Verificar integridade do BD
+- [ ] Atualizar Kanban/Trello
+```
+
+##### Checklist de Coleta de Dados (Diário)
+```markdown
+Checklist - Coleta [DATA]
+
+Pré-execução
+- [ ] Verificar conectividade com APIs
+- [ ] Confirmar saldo de créditos
+- [ ] Revisar prompts do dia
+
+Durante
+- [ ] Monitorar taxa de erro (<5%)
+- [ ] Verificar armazenamento de respostas
+- [ ] Log de problemas (se houver)
+
+Pós-execução
+- [ ] Validar integridade dos dados
+- [ ] Atualizar dashboard de progresso
+- [ ] Backup incremental
+- [ ] Atualizar registro de custos
+```
+
+#### 18.3 Plano de Empacotamento para Replicação Futura
+
+##### Objetivos de Reprodutibilidade
+
+| Nível | Descrição | Requisitos |
+|-------|-----------|------------|
+| **Reproduzível** | Mesmos dados + mesmo código = mesmos resultados | Código + dados + ambiente |
+| **Replicável** | Novo pesquisador pode repetir experimento com novos dados | Código + protocolo detalhado |
+| **Robusto** | Resultados consistentes com variações menores | Documentação de sensibilidade |
+| **Generalizável** | Metodologia aplicável a outros contextos | Framework abstrato |
+
+**Meta:** Atingir nível **Replicável** (mínimo) e **Robusto** (desejável).
+
+##### Pacote de Reprodutibilidade
+
+##### Componentes Obrigatórios (Tier 1 - Essencial)
+
+| Artefato | Conteúdo | Formato | Status |
+|----------|----------|---------|--------|
+| **README Completo** | • Visão geral<br>• Como instalar<br>• Como executar<br>• Como analisar | Markdown | A finalizar |
+| **Plano Experimental** | Este documento completo | Markdown/PDF | Em progresso |
+| **Dataset de Prompts** | 250 prompts anonimizados | JSON/CSV | A criar |
+| **Gabaritos** | Respostas corretas esperadas | JSON | A criar |
+| **Respostas dos Modelos** | 3.000 respostas (anonimizadas) | JSON | Após coleta |
+| **Avaliações Humanas** | Scores + comentários (pseudoanonimizados) | CSV | Após FASE 2 |
+| **Scripts de Coleta** | Código Python completo + config | .py + .yaml | Em desenvolvimento |
+| **Scripts de Análise** | Código R/Python + notebooks | .R / .ipynb | A desenvolver |
+| **Requirements** | Dependências exatas | requirements.txt / environment.yml | A gerar |
+
+##### Componentes Desejáveis (Tier 2 - Recomendado)
+
+| Artefato | Conteúdo | Formato | Status |
+|----------|----------|---------|--------|
+| **Container Docker** | Ambiente completo reproduzível | Dockerfile | 🟡 A criar |
+| **Makefile** | Automatização de setup e execução | Makefile | 🟡 A criar |
+| **Tutorial em Vídeo** | Passo a passo da replicação (15 min) | MP4 (YouTube) | 🔴 Após finalização |
+| **Dados Intermediários** | Embeddings, logs processados | CSV/JSON | 🔴 Após análise |
+| **Figuras e Tabelas** | Resultados visuais finais | PNG/PDF + LaTeX | 🔴 Após análise |
+
+##### Componentes Opcionais (Tier 3 - Valor Adicional)
+
+| Artefato | Conteúdo | Formato | Status |
+|----------|----------|---------|--------|
+| **Dashboard Interativo** | Exploração visual dos resultados | Shiny / Streamlit | 🔴 Opcional |
+| **API de Consulta** | Endpoint para consultar resultados | REST API | 🔴 Opcional |
+| **Dataset Sintético** | Dados fictícios para testes | JSON | 🟡 Para testes |
+
+##### Metadados para Publicação
+
+| Campo | Valor |
+|-------|-------|
+| **Título** | Comparative Analysis of Large Language Model Performance: A Controlled Experiment |
+| **Autores** | Matheus Vinicius, [Orientador] |
+| **Afiliação** | PUC Minas - Engenharia de Software |
+| **Palavras-chave** | Large Language Models, LLM Evaluation, Comparative Study, GPT-4, Claude, Gemini, LLaMA |
+| **Licença de código** | MIT License |
+| **Licença de dados** | CC-BY 4.0 |
+| **Data de publicação** | [Após aceitação do artigo] |
+| **Versão** | 1.0 |
+
+
+##### Testes de Reprodutibilidade
+
+Antes da publicação, executar **teste de replicação** com pessoa externa:
+
+| Teste | Descrição | Critério de Sucesso |
+|-------|-----------|---------------------|
+| **Setup Test** | Pessoa externa instala ambiente | Sucesso em <15 min |
+| **Execution Test** | Executa análises principais | Mesmos resultados (±1% diferença numérica) |
+| **Comprehension Test** | Entende protocolo sem perguntas | Questionário pós-teste ≥80% correto |
+
+
+#### 19. Plano de Comunicação
+
+##### 19.1 Públicos e Mensagens-Chave Pré-Execução
+
+##### Mapeamento de Stakeholders
+
+| Público | Interesse Principal | Frequência de Comunicação | Canal Preferencial |
+|---------|---------------------|----------------------------|-------------------|
+| **Orientador** | Progresso científico, qualidade metodológica | Semanal | Reunião presencial/Zoom + E-mail |
+| **Coordenação do Curso** | Conformidade institucional, prazos | Mensal + marcos | E-mail formal |
+| **Avaliadores** | Instruções claras, cronograma, pagamento | Diário (durante FASE 2) | WhatsApp + Plataforma Web |
+| **Revisor Independente** | Qualidade do dataset, ausência de viés | Pontual (S4-S5) | E-mail + Reunião |
+| **Suporte TI** | Questões técnicas, troubleshooting | Sob demanda | Slack/Teams + Telefone |
+| **Comunidade Acadêmica** | Metodologia, resultados, dataset | Após publicação | Artigo + GitHub + Twitter/LinkedIn |
+| **Fornecedores de APIs** (OpenAI, Anthropic, etc.) | Conformidade com ToS | Pontual (pré-execução) | E-mail oficial |
+
+
+#### 19.2 Canais e Frequência de Comunicação
+
+##### Matriz de Comunicação
+
+| Canal | Público | Tipo de Mensagem | Frequência | Responsável |
+|-------|---------|------------------|-----------|-------------|
+| **E-mail Formal** | Orientador, Coordenação, Revisor | Relatórios, aprovações, decisões formais | Semanal / Pontual | PI |
+| **Reunião Presencial/Zoom** | Orientador | Discussão técnica, resolução de problemas | Semanal (1h) | PI |
+| **WhatsApp / Telegram** | Avaliadores | Instruções rápidas, lembretes, suporte | Diário (FASE 2) | PI |
+| **Slack / Microsoft Teams** | Suporte TI, Equipe (se houver) | Questões técnicas, colaboração | Sob demanda | PI |
+| **Plataforma Web (in-app)** | Avaliadores | Instruções contextuais, FAQ, progresso | Sempre disponível | PI |
+| **GitHub Issues** | Comunidade (pós-publicação) | Dúvidas técnicas, bugs | Sob demanda | PI |
+| **Twitter / LinkedIn** | Comunidade acadêmica | Divulgação de resultados | 1× (após publicação) | PI |
+| **Apresentação Oral** | Banca de defesa | Resultados finais | 1× (defesa) | PI |
+
+##### Calendário de Comunicações Planejadas
+
+| Semana | Evento | Público | Canal | Conteúdo |
+|--------|--------|---------|-------|----------|
+| **S3** | Aprovação do plano | Orientador + Coordenação | E-mail | Plano aprovado, próximos passos |
+| **S5** | Dataset validado | Revisor + Orientador | E-mail | Dataset finalizado, início da preparação técnica |
+| **S8** | Convite a avaliadores | Avaliadores potenciais | E-mail | Convite formal + TCLE |
+| **S9** | Treinamento | Avaliadores | Zoom + WhatsApp | Instruções detalhadas, calibração |
+| **S10** | Go/No-Go | Orientador + Coordenação | Reunião + E-mail | Decisão formal para iniciar |
+| **S11-S13** | Coleta em andamento | Orientador | E-mail semanal | Status de progresso |
+| **S14-S16** | Avaliação humana | Avaliadores | WhatsApp diário | Lembretes, suporte, progresso |
+| **S17** | Coleta concluída | Todos stakeholders | E-mail | Marco atingido, início da análise |
+| **S25** | Análise concluída | Orientador + Coordenação | Reunião + E-mail | Resultados preliminares |
+| **S40** | Artigo submetido | Orientador + Coordenação | E-mail | Submissão para conferência/periódico |
+| **S48** | Dataset publicado | Comunidade acadêmica | GitHub + Twitter | Anúncio público do dataset |
+
+#### 19.3 Pontos de Comunicação Obrigatórios
+
+##### Eventos que Requerem Comunicação Formal
+
+| Evento | Público | Canal | Prazo | Template |
+|--------|---------|-------|-------|----------|
+| **Aprovação do Plano** | Orientador, Coordenação | E-mail formal | Imediato | `docs/templates/aprovacao_plano.md` |
+| **Mudanças Significativas no Escopo** | Orientador, Coordenação, Avaliadores (se impactados) | E-mail + Reunião | Antes da implementação | `docs/templates/change_notification.md` |
+| **Atingimento de Marcos** | Orientador | E-mail | Até 24h após | `docs/templates/milestone_report.md` |
+| **Problemas Críticos** (atraso >1 semana, estouro orçamentário >20%) | Orientador, Coordenação | E-mail + Telefonema | Imediato | `docs/templates/critical_issue.md` |
+| **Adiamento de Prazo** | Todos stakeholders | E-mail | 1 semana antes do prazo original | `docs/templates/prazo_adiado.md` |
+| **Cancelamento Parcial/Total** (se necessário) | Todos stakeholders | E-mail formal + Reunião | Imediato | `docs/templates/cancelamento.md` |
+| **Início de Cada Fase** | Orientador, Stakeholders relevantes | E-mail | 2 dias antes | `docs/templates/inicio_fase.md` |
+| **Conclusão de Cada Fase** | Orientador | E-mail + Reunião | Até 48h após | `docs/templates/conclusao_fase.md` |
+| **Submissão de Artigo** | Orientador, Coordenação | E-mail | Imediato | `docs/templates/submissao_artigo.md` |
+| **Publicação de Resultados** | Todos stakeholders + Comunidade | E-mail + Redes Sociais | Imediato | `docs/templates/publicacao_resultados.md` |
+
+### Template: Comunicação de Problema Crítico
+```markdown
+Assunto: [URGENTE] Problema Crítico no Experimento - [Breve Descrição]
+
+Para: [Orientador / Coordenação]  
+De: Matheus Vinicius  
+Data: [Data]
+
+Natureza do Problema
+[Descrição detalhada do problema]
+
+Impacto
+- Cronograma: [+X semanas de atraso] / [Nenhum impacto]
+- Orçamento: [+X% de custo] / [Nenhum impacto]
+- Qualidade: [Compromete objetivo Y] / [Nenhum impacto]
+
+Causa Raiz
+[Análise da causa]
+
+Ações Já Tomadas
+1. [Ação 1]
+2. [Ação 2]
+
+Plano de Contingência Proposto
+[Descrição da solução]
+
+Decisões Necessárias
+- [Decisão 1] - Prazo: [Data]
+- [Decisão 2] - Prazo: [Data]
+
+Próximos Passos
+[Lista de ações]
+
+Disponibilidade para reunião urgente: [Horários]
+```
+
+
+#### 20. Critérios de Prontidão para Execução (Definition of Ready)
+
+##### 20.1 Checklist de Prontidão (Itens que devem estar completos)
+
+##### Checklist Mestre - Go/No-Go para Início da Operação
+
+| Categoria | Item | Critério de Aceitação | Verificador | Data |
+|-----------|------|----------------------|-------------|------|
+| **APROVAÇÕES E CONFORMIDADE** | | | | | |
+| A1 | Plano experimental aprovado | Parecer positivo do orientador | Orientador | ___ |
+| A2 | Autorização da coordenação | Ofício/e-mail formal de aprovação | Coordenação | ___ |
+| A3 | Orçamento aprovado | R$ 5.000 confirmados | Financeiro | ___ |
+| A4 | Conformidade LGPD verificada | Parecer do DPO ou jurídico | DPO/Jurídico | ___ |
+| A5 | Termos de Serviço das APIs revisados | Confirmação de conformidade para uso em pesquisa | PI | ___ |
+| **DATASET E MATERIAIS** | | | | | |
+| D1 | Dataset de 250 prompts finalizado | 250 prompts balanceados + classificados | PI | ___ |
+| D2 | Revisão independente concluída | Parecer do revisor aprovando dataset | Revisor | ___ |
+| D3 | Gabaritos criados | Respostas corretas para ~100 prompts factuais | PI | ___ |
+| D4 | Rubrica de avaliação finalizada | Documento aprovado pelo orientador | Orientador | ___ |
+| D5 | Guia do Avaliador completo | PDF de 8-10 páginas + exemplos | PI | ___ |
+| D6 | TCLE finalizado | Documento aprovado (legal + ético) | PI/Orientador | ___ |
+| **INFRAESTRUTURA E FERRAMENTAS** | | | | | |
+| I1 | Servidor provisionado | Servidor operacional + acesso SSH | PI/Suporte TI | ___ |
+| I2 | Banco de dados configurado | PostgreSQL instalado + tabelas criadas | PI | ___ |
+| I3 | APIs de LLMs ativadas | Créditos carregados + testes bem-sucedidos (4/4) | PI | ___ |
+| I4 | Scripts de automação funcionais | Testes unitários passando (>95%) | PI | ___ |
+| I5 | Plataforma de avaliação operacional | Interface testada + integrada com BD | PI | ___ |
+| I6 | Sistema de backup configurado | Backup automático diário funcionando | PI | ___ |
+| I7 | Monitoramento/logging implementado | Logs sendo gerados corretamente | PI | ___ |
+| **EQUIPE E TREINAMENTO** | | | | | |
+| E1 | 3 avaliadores recrutados | 3 especialistas com perfil adequado | PI | ___ |
+| E2 | TCLEs assinados | 3 TCLEs com assinatura digital | PI | ___ |
+| E3 | Treinamento de avaliadores concluído | Sessão de calibração realizada | PI | ___ |
+| E4 | Concordância inter-avaliadores adequada | Kappa ≥0.60 no piloto | PI | ___ |
+| E5 | Avaliador reserva identificado | 1 pessoa backup caso desistência | PI | ___ |
+| **TESTE PILOTO** | | | | | |
+| T1 | Piloto executado | 120 execuções (10 prompts × 4 modelos × 3 rep.) | PI | ___ |
+| T2 | Taxa de sucesso técnico | ≥95% de execuções sem erro fatal | PI | ___ |
+| T3 | Métricas calculáveis | Todas as 16 métricas computadas com sucesso | PI | ___ |
+| T4 | Tempo de execução viável | Tempo médio por resposta <5 min | PI | ___ |
+| T5 | Custo dentro do esperado | Custo real ≤110% do estimado | PI | ___ |
+| T6 | Plataforma de avaliação testada | 3 avaliadores conseguiram usar sem problemas | PI/Avaliadores | ___ |
+| T7 | Problemas críticos resolvidos | Todos os bugs bloqueantes corrigidos | PI | ___ |
+| **DOCUMENTAÇÃO** | | | | | |
+| DOC1 | Plano experimental versionado | Versão final 1.0 no GitHub | PI | ___ |
+| DOC2 | Protocolo operacional escrito | Documento detalhado de execução | PI | ___ |
+| DOC3 | Instruções para avaliadores | Guia + FAQ acessíveis na plataforma | PI | ___ |
+| DOC4 | Templates prontos | Todos os templates necessários criados | PI | ___ |
+| DOC5 | Repositório Git configurado | Estrutura de pastas + README | PI | ___ |
+| **COMUNICAÇÃO** | | | | | |
+| C1 | Cronograma comunicado | Todos stakeholders informados de datas | PI | ___ |
+| C2 | Canais de comunicação estabelecidos | WhatsApp, e-mail, Slack ativos | PI | ___ |
+| C3 | Plano de contingência socializado | Todos sabem o que fazer em emergências | PI | ___ |
+
+##### Critérios de Aprovação para Go/No-Go
+
+| Resultado | Critério | Decisão |
+|-----------|----------|---------|
+| **GO** | ✅ **100% dos itens obrigatórios concluídos** | Iniciar execução na data planejada |
+| **GO CONDICIONAL** | 95-99% concluído + nenhum item crítico pendente | Iniciar com restrições / Plano de mitigação |
+| **NO-GO** | <95% concluído OU qualquer item crítico pendente | Adiar início até resolver pendências |
+
+**Itens Críticos (não podem estar pendentes):**
+- A1, A2, A3 (Aprovações)
+- D1, D2 (Dataset validado)
+- I3 (APIs funcionais)
+- E1, E2 (Avaliadores recrutados e consentimento)
+- T2 (Piloto bem-sucedido tecnicamente)
+
+
+#### 20.2 Aprovações Finais para Iniciar a Operação
+
+##### Processo de Aprovação Final (Go Decision)
+
+##### Etapa 1: Autoverificação pelo PI
+**Prazo:** Semana 10, Sexta-feira  
+**Responsável:** Pesquisador Principal  
+**Ação:** Preencher checklist completo (Seção 20.1) e gerar relatório de prontidão
+
+**Formato do Relatório de Prontidão:**
+```markdown
+Relatório de Prontidão - Experimento EXP-LLM-DOM-001
+Data: [DD/MM/AAAA]
+Pesquisador: Matheus Vinicius
+
+Resumo Executivo
+- Itens concluídos: [XX/YY] ([Z%])
+- Itens críticos pendentes: [Lista ou "Nenhum"]
+- Recomendação: [GO / GO CONDICIONAL / NO-GO]
+
+Detalhamento por Categoria
+[Tabela do checklist preenchida]
+
+Riscos Residuais
+[Lista de riscos ainda presentes após preparação]
+
+Plano de Ação para Pendências
+[Se houver itens pendentes não-críticos]
+
+Solicitação de Aprovação
+Solicito formalmente aprovação para iniciar a FASE 1 (Coleta Automatizada)
+em [DATA].
+
+Assinatura: Matheus Vinicius
+Data: [DD/MM/AAAA]
+```
+
+##### Etapa 2: Reunião de Go/No-Go
+**Prazo:** Semana 10, Segunda-feira (início da semana seguinte)  
+**Duração:** 90 minutos  
+**Participantes obrigatórios:**
+- Pesquisador Principal
+- Orientador Acadêmico
+- (Opcional) Revisor Independente
+
+**Agenda:**
+1. **Apresentação do Relatório de Prontidão** (15 min) - PI
+2. **Revisão Item-a-Item do Checklist** (30 min) - PI + Orientador
+3. **Discussão de Riscos Residuais** (20 min) - Todos
+4. **Avaliação de Contingências** (15 min) - Todos
+5. **Decisão Formal de Go/No-Go** (10 min) - Orientador (aprovador final)
+
+#### Etapa 3: Documentação da Decisão
+**Responsável:** PI  
+**Prazo:** Até 24h após reunião
+
+**Ata de Decisão Go/No-Go:**
+```markdown
+Ata de Decisão - Go/No-Go para Início da Operação
+
+Data da Reunião: [DD/MM/AAAA]
+Participantes: [Lista]
+
+Decisão Final
+**GO** / **GO CONDICIONAL** / **NO-GO**
+
+Justificativa
+[Explicação da decisão]
+
+Condições para GO CONDICIONAL (se aplicável)
+- [Condição 1]
+- [Condição 2]
+
+Data de Início Autorizada
+[DD/MM/AAAA]
+
+Assinaturas
+- Orientador (Aprovador): ___________________  
+- Pesquisador Principal: ___________________  
+- Data: ___/___/_____
+
+Próximos Passos Imediatos
+1. [Ação 1] - [Responsável] - [Prazo]
+2. [Ação 2] - [Responsável] - [Prazo]
+```
